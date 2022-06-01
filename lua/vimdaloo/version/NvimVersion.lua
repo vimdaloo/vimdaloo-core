@@ -38,11 +38,12 @@ end
 -- @display NvimVersion
 -- @treturn vimdaloo.version.NvimVersion
 function NvimVersion:initialize()
+    assert(vim, 'unable to initialize NvimVersion: vim global variable not present')
     -- HACK: figure out how to get this without spawning a command
-    local handle = io.popen(vim.v.progpath .. ' -v | grep -oP "(?<=^NVIM v).*"')
-    local value = handle:read('*a') ---@diagnostic disable-line: need-check-nil
+    local handle = io.popen(vim.v.progpath .. ' -v')
+    local value = handle:read() ---@diagnostic disable-line: need-check-nil
     handle:close() ---@diagnostic disable-line: need-check-nil
-    value = value:gsub('^%s*(.-)%s*$', '%1')
+    value = value:gsub('NVIM v', '')
 
     SemanticVersion.initialize(self, value)
     local ver = vim.version()

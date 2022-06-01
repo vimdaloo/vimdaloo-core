@@ -19,7 +19,7 @@ main() {
     if [ "${action}" == "clean" ]; then
         _clean
     elif [ "${action}" == "install" ]; then
-        _insall
+        _install
     else
         _clean
         _install

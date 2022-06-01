@@ -27,7 +27,7 @@ M.singleton = function(class)
     if jit then
         return class:include(require('middleclass.mixin.singleton'))
     else
-        -- HACK: replacing instance function with new function
+        -- HACK: setting instance function to new function
         class.instance = class.new
         return class
     end
