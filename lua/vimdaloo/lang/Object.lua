@@ -1,13 +1,25 @@
 local class = require('vimdaloo').class
 
 ---
--- vimdaloo.lang.Object
+-- &nbsp;<br/>
+-- **Class Hierarchy**
+--
+-- &nbsp; &nbsp; <code style="padding: 0.2em; font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.01em; background-color: #fbedc3;">vimdaloo.lang.Object</code>
 --
 -- @class vimdaloo.lang.Object
 --
--- @see vimdaloo.version.Version
+-- &nbsp;<br/>
+-- **Subclasses**
 --
+-- @{vimdaloo.version.Version|Version}
 local Object = class('vimdaloo.lang.Object')
+
+--- Description.
+-- Base class for all objects.
+-- @section Description
+
+--- API
+--- @section API
 
 Object.static._instanceCounters = {}
 

@@ -5,15 +5,22 @@ local Version = import('vimdaloo.version.Version')
 -- @class vimdaloo.version.SemanticVersion
 -- @inherits vimdaloo.version.Version
 --
--- [https://semver.org/](https://semver.org/)
+-- **Subclasses**
 --
--- @see vimdaloo.version.LuaJITVersion
--- @see vimdaloo.version.LuaVersion
--- @see vimdaloo.version.NvimVersion
--- @see vimdaloo.version.VimdalooVersion
+-- @{vimdaloo.version.LuaJITVersion|LuaJITVersion},
+-- @{vimdaloo.version.LuaVersion|LuaVersion},
+-- @{vimdaloo.version.NvimVersion|NvimVersion},
+-- @{vimdaloo.version.VimdalooVersion|VimdalooVersion}
 local SemanticVersion = Version:subclass('vimdaloo.version.SemanticVersion')
 
 local semver = require('semver')
+
+--- Description.
+-- A version adhering to the [Semantic Versioning](https://semver.org) format.
+-- @section Description
+
+--- API.
+--- @section API
 
 --- constructor
 -- @display SemanticVersion

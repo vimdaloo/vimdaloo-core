@@ -4,31 +4,40 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 ---
 -- @class vimdaloo.version.NvimVersion
 -- @inherits vimdaloo.version.SemanticVersion
---
--- [https://neovim.io/](https://neovim.io/)
---
 local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.NvimVersion'))
 
--- NVIM v0.7.0 vim.version() ->
--- {
---   api_compatible = 0,
---   api_level = 9,
---   api_prerelease = false,
---   major = 0,
---   minor = 7,
---   patch = 0
--- }
+--- Description.
+-- A semantic version populated from [`Neovim`](https://neovim.io)
+-- @section Description
+--
+-- @code
+--    -- SemanticVersion base class gets populated from:
+--    --   io.popen(vim.v.progpath .. ' -v')
+--
+--    -- NvimVersion extension class gets populated from:
+--    --   vim.version()
+--    --     NVIM v0.7.0
+--           {
+--             api_compatible = 0,
+--             api_level = 9,
+--             api_prerelease = false,
+--             major = 0,
+--             minor = 7,
+--             patch = 0
+--           }
+--    --     NVIM v0.8.0-dev+302-gaf2899aee
+--           {
+--             api_compatible = 0,
+--             api_level = 10,
+--             api_prerelease = true,
+--             major = 0,
+--             minor = 8,
+--             patch = 0,
+--             prerelease = true
+--           }
 
--- NVIM v0.8.0-dev+302-gaf2899aee vim.version() ->
--- {
---   api_compatible = 0,
---   api_level = 10,
---   api_prerelease = true,
---   major = 0,
---   minor = 8,
---   patch = 0,
---   prerelease = true
--- }
+--- API.
+--- @section API
 
 local function _assert_consistent(name, val1, val2)
     assert(val1 == val2, string.format('inconsistent %s version (%s ~= %s)', name, val1, val2))
