@@ -1,5 +1,13 @@
 #!/bin/bash
 
+_clean() {
+    luarocks remove vimdaloo-core --local
+}
+
+_install() {
+    luarocks make --local
+}
+
 main() {
     local orig_dir=$(pwd)
 
@@ -9,11 +17,12 @@ main() {
 
     local action="${1}"
     if [ "${action}" == "clean" ]; then
-        luarocks remove vimdaloo-core --local
+        _clean
     elif [ "${action}" == "install" ]; then
-        luarocks make --local
+        _insall
     else
-        echo "unknown action: ${action}"
+        _clean
+        _install
     fi
 
     cd "${orig_dir}"

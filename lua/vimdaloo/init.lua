@@ -23,7 +23,14 @@ end
 -- @tparam middleclass class the class to turn into a singleton
 -- @treturn middleclass the middleclass turned into a singleton
 M.singleton = function(class)
-    return class:include(require('middleclass.mixin.singleton'))
+    -- FIXME: figure out why the singleton mixin breaks Lua, but not LuaJIT or NVIM (which uses LuaJIT)
+    if jit then
+        return class:include(require('middleclass.mixin.singleton'))
+    else
+        -- HACK: replacing instance function with new function
+        class.instance = class.new
+        return class
+    end
 end
 
 return M

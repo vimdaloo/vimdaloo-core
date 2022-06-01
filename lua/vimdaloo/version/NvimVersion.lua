@@ -30,9 +30,6 @@ local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.Nvim
 --   prerelease = true
 -- }
 
--- :lua print(require('vimdaloo.version.NvimVersion'):instance())
--- :lua print(require('vimdaloo.version').version)
-
 local function _assert_consistent(name, val1, val2)
     assert(val1 == val2, string.format('inconsistent %s version (%s ~= %s)', name, val1, val2))
 end
