@@ -7,6 +7,7 @@ local class = require('vimdaloo').class
 -- &nbsp; &nbsp; <code style="padding: 0.2em; font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.01em; background-color: #fbedc3;">vimdaloo.lang.Object</code>
 --
 -- @class vimdaloo.lang.Object
+-- @display …lang.Object
 --
 -- &nbsp;<br/>
 -- **Subclasses**

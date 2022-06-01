@@ -3,6 +3,7 @@ local Object = import('vimdaloo.lang.Object')
 
 ---
 -- @class vimdaloo.version.Version
+-- @display …version.Version
 -- @inherits vimdaloo.lang.Object
 --
 -- **Subclasses**

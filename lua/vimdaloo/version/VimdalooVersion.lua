@@ -3,6 +3,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 
 ---
 -- @class vimdaloo.version.VimdalooVersion
+-- @display …version.VimdalooVersion
 -- @inherits vimdaloo.version.SemanticVersion
 local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.VimdalooVersion'))
 
@@ -17,7 +18,7 @@ local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.
 -- @display VimdalooVersion
 -- @treturn vimdaloo.version.VimdalooVersion
 function VimdalooVersion:initialize()
-    SemanticVersion.initialize(self, '0.0.1-1')
+    SemanticVersion.initialize(self, oo._VERSION:gsub('Vimdaloo ', ''))
 end
 
 return VimdalooVersion
