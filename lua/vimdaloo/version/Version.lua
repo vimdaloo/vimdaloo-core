@@ -5,9 +5,17 @@ local Object = import('vimdaloo.lang.Object')
 -- @class vimdaloo.version.Version
 -- @inherits vimdaloo.lang.Object
 --
--- @see vimdaloo.version.SemanticVersion
+-- **Subclasses**
 --
+-- @{vimdaloo.version.SemanticVersion|SemanticVersion}
 local Version = Object:subclass('vimdaloo.version.Version')
+
+--- Description.
+-- A simple version value holder.
+-- @section Description
+
+--- API.
+--- @section API
 
 --- constructor
 -- @display Version
