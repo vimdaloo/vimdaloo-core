@@ -12,10 +12,10 @@ local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.Nvim
 -- @section Description
 --
 -- @code
---    -- SemanticVersion base class gets populated from:
+--    -- SemanticVersion parent class gets populated from:
 --    --   io.popen(vim.v.progpath .. ' -v')
 --
---    -- NvimVersion extension class gets populated from:
+--    -- NvimVersion class gets further populated from:
 --    --   vim.version()
 --    --     NVIM v0.7.0
 --           {
