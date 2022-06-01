@@ -13,7 +13,7 @@ local M = {
 -- @display class
 -- @tparam string name the name of the middleclass to create
 -- @treturn function the created a middleclass
-M.class = function(...)
+function M.class(...)
     return require('middleclass')(...)
 end
 
@@ -21,7 +21,7 @@ end
 -- @display import
 -- @tparam string name the name of the middleclass to import
 -- @treturn function the imported middleclass
-M.import = function(name)
+function M.import(name)
     return require(name)
 end
 
@@ -29,7 +29,7 @@ end
 -- @display singleton
 -- @tparam middleclass class the class to turn into a singleton
 -- @treturn function the class turned into a singleton
-M.singleton = function(class)
+function M.singleton(class)
     if class.static._new == nil then
         class.static._new = class.static.new
         class.static.new = function()
@@ -37,13 +37,22 @@ M.singleton = function(class)
         end
         function class.static.instance(...)
             if class.static._singleton == nil then
-                ---@diagnostic disable-next-line: redundant-parameter
-                class.static._singleton = class.static._new(...)
+                class.static._singleton = class.static._new(...) ---@diagnostic disable-line: redundant-parameter
             end
             return class.static._singleton
         end
     end
     return class
+end
+
+if vim then
+    --- Only available within Neovim, adding commands `:VimdalooVersionNotify` and `:VimdalooVersionPrint`
+    -- @display setup
+    -- @tparam table user_config optional custom user configuration
+    function M.setup(user_config) ---@diagnostic disable-line: unused-local
+        vim.cmd([[command! VimdalooVersionNotify :lua require('vimdaloo.version').notify()<CR>]])
+        vim.cmd([[command! VimdalooVersionPrint :lua require('vimdaloo.version').print()<CR>]])
+    end
 end
 
 return M

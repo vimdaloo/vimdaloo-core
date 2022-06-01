@@ -9,14 +9,14 @@ local M = {}
 --- returns singleton
 -- @display lua
 -- @treturn vimdaloo.version.LuaVersion
-M.lua = function()
+function M.lua()
     return import('vimdaloo.version.LuaVersion'):instance()
 end
 
 --- returns singleton
 -- @display luajit
 -- @treturn vimdaloo.version.LuaJITVersion
-M.luajit = function()
+function M.luajit()
     if jit then
         return import('vimdaloo.version.LuaJITVersion'):instance()
     else
@@ -27,7 +27,7 @@ end
 --- returns singleton
 -- @display nvim
 -- @treturn vimdaloo.version.NvimVersion
-M.nvim = function()
+function M.nvim()
     if vim then
         return import('vimdaloo.version.NvimVersion'):instance()
     else
@@ -38,7 +38,7 @@ end
 --- returns singleton
 -- @display vimdaloo
 -- @treturn vimdaloo.version.VimdalooVersion
-M.vimdaloo = function()
+function M.vimdaloo()
     return import('vimdaloo.version.VimdalooVersion'):instance()
 end
 
@@ -48,7 +48,7 @@ end
 -- @treturn vimdaloo.version.LuaJITVersion lujit
 -- @treturn vimdaloo.version.NvimVersion nvim
 -- @treturn vimdaloo.version.VimdalooVersion vimdaloo
-M.versions = function()
+function M.versions()
     return {
         lua = M.lua(),
         luajit = M.luajit(),
@@ -63,7 +63,7 @@ end
 -- @treturn string lujit
 -- @treturn string nvim
 -- @treturn string vimdaloo
-M.values = function()
+function M.values()
     local v = M.versions()
     return {
         lua = v.lua:getValue(),
@@ -76,7 +76,7 @@ end
 --- returns values string
 -- @display string
 -- @treturn string versions
-M.string = function()
+function M.string()
     local v = M.values()
     local s = 'Vimdaloo ' .. v.vimdaloo .. ' | Lua ' .. v.lua
     if jit then
@@ -90,13 +90,13 @@ end
 
 --- prints values string
 -- @display print
-M.print = function()
+function M.print()
     print(M.string())
 end
 
 --- notifies values string (or prints if not in nvim)
 -- @display notify
-M.notify = function()
+function M.notify()
     if vim then
         vim.notify(M.string())
     else
