@@ -15,8 +15,6 @@ local SemanticVersion = Version:subclass('vimdaloo.version.SemanticVersion')
 
 local semver = require('semver')
 
--- :lua print(require('vimdaloo.version.SemanticVersion')('0.8.0-dev+302-gaf2899aee'))
-
 --- constructor
 -- @display SemanticVersion
 -- @tparam string value
