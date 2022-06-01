@@ -1,2 +1,2 @@
 # vimdaloo-core
-Object-Oriented Lua Library
+Object-Oriented Lua Library for Neovim
