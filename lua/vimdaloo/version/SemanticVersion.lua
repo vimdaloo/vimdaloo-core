@@ -3,6 +3,7 @@ local Version = import('vimdaloo.version.Version')
 
 ---
 -- @class vimdaloo.version.SemanticVersion
+-- @display …version.SemanticVersion
 -- @inherits vimdaloo.version.Version
 --
 -- **Subclasses**

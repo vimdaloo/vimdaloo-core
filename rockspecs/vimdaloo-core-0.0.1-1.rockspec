@@ -16,12 +16,10 @@ description = {
         'vimdaloo',
     },
 }
--- 'luafilesystem = 1.8.0-1',
 dependencies = {
     'lua >= 5.1, < 5.5',
     'lua-semver = 1.2.2-1',
     'middleclass = 4.1.1-0',
-    'middleclass-mixin-singleton = 0.01-1',
 }
 -- test_dependencies = {
 --     'luaunit = 3.4-1',

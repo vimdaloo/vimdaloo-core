@@ -3,6 +3,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 
 ---
 -- @class vimdaloo.version.LuaJITVersion
+-- @display …version.LuaJITVersion
 -- @inherits vimdaloo.version.SemanticVersion
 local LuaJITVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.LuaJITVersion'))
 
@@ -17,6 +18,7 @@ local LuaJITVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.Lu
 -- @display LuaJITVersion
 -- @treturn vimdaloo.version.LuaJITVersion
 function LuaJITVersion:initialize()
+    assert(jit, 'unable to initialize LuaJITVersion: "jit" global variable missing')
     SemanticVersion.initialize(self, jit.version:gsub('LuaJIT ', ''))
 end
 

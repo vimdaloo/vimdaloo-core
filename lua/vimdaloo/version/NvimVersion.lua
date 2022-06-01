@@ -3,6 +3,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 
 ---
 -- @class vimdaloo.version.NvimVersion
+-- @display …version.NvimVersion
 -- @inherits vimdaloo.version.SemanticVersion
 local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.NvimVersion'))
 
@@ -47,8 +48,8 @@ end
 -- @display NvimVersion
 -- @treturn vimdaloo.version.NvimVersion
 function NvimVersion:initialize()
-    assert(vim, 'unable to initialize NvimVersion: vim global variable not present')
-    -- HACK: figure out how to get this without spawning a command
+    assert(vim, 'unable to initialize NvimVersion: "vim" global variable missing')
+    -- HACK: shouldn't have to spawn the command to get the full semantic version
     local handle = io.popen(vim.v.progpath .. ' -v')
     local value = handle:read() ---@diagnostic disable-line: need-check-nil
     handle:close() ---@diagnostic disable-line: need-check-nil
