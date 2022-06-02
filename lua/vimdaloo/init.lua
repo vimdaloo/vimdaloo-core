@@ -5,7 +5,7 @@
 local M = {
     _VERSION = 'Vimdaloo 0.0.1-1',
     _DESCRIPTION = 'Object-Oriented Lua Library for Neovim',
-    _URL = 'https://vimdaloo.io',
+    _URL = 'https://github.com/vimdaloo/vimdaloo-core',
     _LICENSE = 'Apache License 2.0',
 }
 
