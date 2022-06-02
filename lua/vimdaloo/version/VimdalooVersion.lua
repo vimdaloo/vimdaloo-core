@@ -14,8 +14,8 @@ local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.
 --- API.
 --- @section API
 
---- constructor
--- @display VimdalooVersion
+--- singleton
+-- @display VimdalooVersion:instance
 -- @treturn vimdaloo.version.VimdalooVersion
 function VimdalooVersion:initialize()
     SemanticVersion.initialize(self, oo._VERSION:gsub('Vimdaloo ', ''))

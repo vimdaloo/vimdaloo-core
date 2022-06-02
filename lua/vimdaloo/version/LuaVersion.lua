@@ -14,8 +14,8 @@ local LuaVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.LuaVe
 --- API.
 --- @section API
 
---- constructor
--- @display LuaVersion
+--- singleton
+-- @display LuaVersion:instance
 -- @treturn vimdaloo.version.LuaVersion
 function LuaVersion:initialize()
     assert(_VERSION, 'unable to initialize LuaVersion: "_VERSION" global variable missing')

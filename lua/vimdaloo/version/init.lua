@@ -6,14 +6,14 @@ local import = require('vimdaloo').import
 
 local M = {}
 
---- returns singleton
+--- returns the singleton LuaVersion object
 -- @display lua
 -- @treturn vimdaloo.version.LuaVersion
 function M.lua()
     return import('vimdaloo.version.LuaVersion'):instance()
 end
 
---- returns singleton
+--- returns the singleton LuaVersion object
 -- @display luajit
 -- @treturn vimdaloo.version.LuaJITVersion
 function M.luajit()
@@ -24,7 +24,7 @@ function M.luajit()
     end
 end
 
---- returns singleton
+--- returns the singleton LuaVersion object
 -- @display nvim
 -- @treturn vimdaloo.version.NvimVersion
 function M.nvim()
@@ -35,14 +35,14 @@ function M.nvim()
     end
 end
 
---- returns singleton
+--- returns the singleton LuaVersion object
 -- @display vimdaloo
 -- @treturn vimdaloo.version.VimdalooVersion
 function M.vimdaloo()
     return import('vimdaloo.version.VimdalooVersion'):instance()
 end
 
---- returns singletons
+--- returns the singleton SemanticVersion objects
 -- @display versions
 -- @treturn vimdaloo.version.LuaVersion lua
 -- @treturn vimdaloo.version.LuaJITVersion lujit
