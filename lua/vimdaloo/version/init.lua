@@ -86,7 +86,7 @@ function M.print()
     print(M.string())
 end
 
---- notifies combined versions string via `vim.notify()`, or falls back to printing if not inside nvim
+--- notifies combined versions string via [`vim.notify()`](https://neovim.io/doc/user/lua.html#vim.notify()), or falls back to printing if not within `nvim`
 -- @display notify
 function M.notify()
     if vim then

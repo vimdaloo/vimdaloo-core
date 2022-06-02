@@ -41,7 +41,7 @@ function Version:getValue()
     return self.value
 end
 
---- full version string (prefix + value); overrides @{vimdaloo.lang.Object} `:toString()`
+--- full version string (prefix + value); overrides `vimdaloo.lang.Object:toString()`
 -- @treturn string
 function Version:toString()
     return self:getPrefix() .. self:getValue()
