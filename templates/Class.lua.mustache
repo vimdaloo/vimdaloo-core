@@ -1,0 +1,55 @@
+local import = require('vimdaloo').import
+local {{super.class}} = import('{{root}}.{{super.pkg}}.{{super.class}}')
+
+---
+-- @class {{root}}.{{pkg}}.{{class}}
+-- @display …{{pkg}}.{{class}}
+-- @inherits {{root}}.{{super.pkg}}.{{super.class}}
+--
+-- **Subclasses**
+--
+{{#subclasses}}
+-- @{{openbrace}}{{root}}.{{pkg}}.{{class}}|{{class}}}{{closebrace}}{{#comma}},{{/comma}}
+{{/subclasses}}
+local {{class}} = {{super.class}}:subclass('{{root}}.{{pkg}}.{{class}}')
+
+--- Description.
+-- {{desc}}
+-- @section Description
+
+--- API.
+--- @section API
+
+--- constructor
+-- @display {{class}}
+{{#super}}
+{{#props}}
+-- @tparam {{type}} {{var}} {{desc}}
+{{/props}}
+{{/super}}
+{{#props}}
+-- @tparam {{type}} {{var}} {{desc}}
+{{/props}}
+-- @treturn {{root}}.{{pkg}}.{{class}}
+function {{class}}:initialize({{#super}}{{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}}{{/super}}{{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}})
+    {{#super}}{{class}}.initialize(self, {{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}}{{/super}})
+{{#props}}
+    self.{{var}} = {{var}}
+{{/props}}
+end
+
+{{#props}}
+--- {{var}} getter
+-- @treturn {{type}} {{var}} {{desc}}
+function {{class}}:get{{access}}()
+    return self.{{var}}
+end
+
+--- {{var}} setter
+-- @tparam {{type}} {{var}} {{desc}}
+function {{class}}:set{{access}}({{var}})
+    self.{{var}} = {{var}}
+end
+
+{{/props}}
+return {{class}}

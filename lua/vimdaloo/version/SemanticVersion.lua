@@ -38,31 +38,31 @@ function SemanticVersion:initialize(prefix, value)
     self.build = sv.build
 end
 
---- major accessor
+--- major getter
 -- @treturn number major
 function SemanticVersion:getMajor()
     return self.major
 end
 
---- minor accessor
+--- minor getter
 -- @treturn number minor
 function SemanticVersion:getMinor()
     return self.minor
 end
 
---- patch accessor
+--- patch getter
 -- @treturn number patch
 function SemanticVersion:getPatch()
     return self.patch
 end
 
---- prerelease accessor
+--- prerelease getter
 -- @treturn string prerelease
 function SemanticVersion:getPrerelease()
     return self.prerelease
 end
 
---- build accessor
+--- build getter
 -- @treturn string build
 function SemanticVersion:getBuild()
     return self.build

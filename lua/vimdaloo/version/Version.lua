@@ -29,13 +29,13 @@ function Version:initialize(prefix, value)
     self.value = value
 end
 
---- prefix accessor
+--- prefix getter
 -- @treturn string prefix
 function Version:getPrefix()
     return self.prefix
 end
 
---- value accessor
+--- value getter
 -- @treturn string value
 function Version:getValue()
     return self.value
