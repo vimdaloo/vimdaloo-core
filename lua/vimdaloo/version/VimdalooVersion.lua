@@ -18,7 +18,8 @@ local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.
 -- @display VimdalooVersion:instance
 -- @treturn vimdaloo.version.VimdalooVersion
 function VimdalooVersion:initialize()
-    SemanticVersion.initialize(self, oo._VERSION:gsub('Vimdaloo ', ''))
+    local prefix = 'Vimdaloo '
+    SemanticVersion.initialize(self, prefix, oo._VERSION:gsub(prefix, ''))
 end
 
 return VimdalooVersion

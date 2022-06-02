@@ -2,7 +2,7 @@ local class = require('vimdaloo').class
 
 ---
 -- &nbsp;<br/>
--- **Class**
+-- **Class Root**
 --
 -- &nbsp; &nbsp; <code style="padding: 0.2em; font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.01em; background-color: #fbedc3;">vimdaloo.lang.Object</code>
 --

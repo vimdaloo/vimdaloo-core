@@ -53,9 +53,10 @@ function NvimVersion:initialize()
     local handle = io.popen(vim.v.progpath .. ' -v')
     local value = handle:read() ---@diagnostic disable-line: need-check-nil
     handle:close() ---@diagnostic disable-line: need-check-nil
-    value = value:gsub('NVIM v', '')
+    local prefix = 'NVIM v'
+    value = value:gsub(prefix, '')
 
-    SemanticVersion.initialize(self, value)
+    SemanticVersion.initialize(self, prefix, value)
     local ver = vim.version()
     _assert_consistent('major', self.major, ver.major)
     _assert_consistent('minor', self.minor, ver.minor)

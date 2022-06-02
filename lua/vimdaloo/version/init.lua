@@ -13,7 +13,7 @@ function M.lua()
     return import('vimdaloo.version.LuaVersion'):instance()
 end
 
---- returns the singleton LuaVersion object
+--- returns the singleton LuaJITVersion object
 -- @display luajit
 -- @treturn vimdaloo.version.LuaJITVersion
 function M.luajit()
@@ -24,7 +24,7 @@ function M.luajit()
     end
 end
 
---- returns the singleton LuaVersion object
+--- returns the singleton NvimVersion object
 -- @display nvim
 -- @treturn vimdaloo.version.NvimVersion
 function M.nvim()
@@ -35,19 +35,16 @@ function M.nvim()
     end
 end
 
---- returns the singleton LuaVersion object
+--- returns the singleton VimdalooVersion object
 -- @display vimdaloo
 -- @treturn vimdaloo.version.VimdalooVersion
 function M.vimdaloo()
     return import('vimdaloo.version.VimdalooVersion'):instance()
 end
 
---- returns the singleton SemanticVersion objects
+--- returns a table of singleton version objects
 -- @display versions
--- @treturn vimdaloo.version.LuaVersion lua
--- @treturn vimdaloo.version.LuaJITVersion lujit
--- @treturn vimdaloo.version.NvimVersion nvim
--- @treturn vimdaloo.version.VimdalooVersion vimdaloo
+-- @treturn table { lua = @{vimdaloo.version.LuaVersion}, luajit = @{vimdaloo.version.LuaJITVersion}, nvim = @{vimdaloo.version.NvimVersion}, vimdaloo = @{vimdaloo.version.VimdalooVersion} }
 function M.versions()
     return {
         lua = M.lua(),
@@ -57,44 +54,39 @@ function M.versions()
     }
 end
 
---- returns values
+--- returns a table of version values
 -- @display values
--- @treturn string lua
--- @treturn string lujit
--- @treturn string nvim
--- @treturn string vimdaloo
+-- @treturn table e.g. { lua = "5.1", luajit = "2.1.0-beta3", nvim = "0.7.0", vimdaloo = "0.0.1-1" }
 function M.values()
-    local v = M.versions()
     return {
-        lua = v.lua:getValue(),
-        luajit = jit and v.luajit:getValue() or nil,
-        nvim = vim and v.nvim:getValue() or nil,
-        vimdaloo = v.vimdaloo:getValue(),
+        lua = M.lua():getValue(),
+        luajit = jit and M.luajit():getValue() or nil,
+        nvim = vim and M.nvim():getValue() or nil,
+        vimdaloo = M.vimdaloo():getValue(),
     }
 end
 
---- returns values string
+--- returns combined versions string
 -- @display string
--- @treturn string versions
+-- @treturn string e.g. "Lua 5.1, LuaJIT 2.1.0-beta3, NVIM v0.7.0, Vimdaloo 0.0.1-1"
 function M.string()
-    local v = M.values()
-    local s = 'Vimdaloo ' .. v.vimdaloo .. ' | Lua ' .. v.lua
+    local s = M.lua():toString()
     if jit then
-        s = s .. ' | LuaJIT ' .. v.luajit
+        s = s .. ', ' .. M.luajit():toString()
     end
     if vim then
-        s = s .. ' | NVIM v' .. v.nvim
+        s = s .. ', ' .. M.nvim():toString()
     end
-    return s
+    return s .. ', ' .. M.vimdaloo():toString()
 end
 
---- prints values string
+--- prints combined versions string
 -- @display print
 function M.print()
     print(M.string())
 end
 
---- notifies values string (or prints if not in nvim)
+--- notifies combined versions string via `vim.notify()`, or falls back to printing if not inside nvim
 -- @display notify
 function M.notify()
     if vim then

@@ -25,10 +25,11 @@ local semver = require('semver')
 
 --- constructor
 -- @display SemanticVersion
+-- @tparam string prefix
 -- @tparam string value
 -- @treturn vimdaloo.version.SemanticVersion
-function SemanticVersion:initialize(value)
-    Version.initialize(self, value)
+function SemanticVersion:initialize(prefix, value)
+    Version.initialize(self, prefix, value)
     local sv = semver(value)
     self.major = sv.major
     self.minor = sv.minor
