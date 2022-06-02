@@ -48,7 +48,7 @@ function M.singleton(class)
 end
 
 if vim then
-    --- Only available within Neovim, adding commands `:VimdalooVersionNotify` and `:VimdalooVersionPrint`
+    --- Only available within `nvim`, adding commands `:VimdalooVersionNotify` and `:VimdalooVersionPrint`
     -- @display setup
     -- @tparam table user_config optional custom user configuration
     function M.setup(user_config) ---@diagnostic disable-line: unused-local

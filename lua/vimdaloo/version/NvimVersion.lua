@@ -8,7 +8,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.NvimVersion'))
 
 --- Description.
--- A semantic version populated from [`Neovim`](https://neovim.io)
+-- A semantic version populated from [`nvim`](https://neovim.io) `-v` and `vim.version()`
 -- @section Description
 --
 -- @code

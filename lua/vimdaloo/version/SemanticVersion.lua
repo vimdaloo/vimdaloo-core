@@ -17,7 +17,7 @@ local SemanticVersion = Version:subclass('vimdaloo.version.SemanticVersion')
 local semver = require('semver')
 
 --- Description.
--- A version able to parse and adhere to the [Semantic Versioning](https://semver.org) format.
+-- A version able to parse and adhere to the **Semantic Versioning Specification** ([SemVer](https://semver.org))
 -- @section Description
 
 --- API.

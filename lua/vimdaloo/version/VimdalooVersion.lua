@@ -8,7 +8,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.VimdalooVersion'))
 
 --- Description.
--- The [Vimdaloo](https://vimdaloo.io/) semantic version.
+-- The [Vimdaloo](https://vimdaloo.io/) semantic version, populated from `vimdaloo._VERSION`
 -- @section Description
 
 --- API.
