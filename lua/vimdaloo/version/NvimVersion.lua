@@ -8,7 +8,7 @@ local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
 local NvimVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.NvimVersion'))
 
 --- Description.
--- A semantic version populated from [`nvim`](https://neovim.io) `-v` and `vim.version()`
+-- A semantic version populated from [`nvim`](https://neovim.io) `-v` and [`vim.version()`](https://neovim.io/doc/user/lua.html#vim.version)
 -- @section Description
 --
 -- @code
@@ -69,25 +69,25 @@ function NvimVersion:initialize()
     _assert_consistent('prerelease', self['prerelease'] ~= nil, self._prerelease)
 end
 
---- api compatible accessor
+--- api compatible getter
 -- @treturn number get api compatible
 function NvimVersion:getApiCompatible()
     return self.api_compatible
 end
 
---- api level accessor
+--- api level getter
 -- @treturn number get api level
 function NvimVersion:getApiLevel()
     return self.api_level
 end
 
---- api prerelease accessor
+--- api prerelease getter
 -- @treturn boolean true if api prerelease
 function NvimVersion:isApiPrerelease()
     return self.api_prerelease
 end
 
---- prerelease accessor
+--- prerelease getter
 -- @treturn boolean true if prerelease
 function NvimVersion:isPrerelease()
     -- use underscore (_), otherwise it references self.prerelease in SemanticVersion
