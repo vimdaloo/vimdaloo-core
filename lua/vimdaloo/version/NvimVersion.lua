@@ -44,8 +44,8 @@ local function _assert_consistent(name, val1, val2)
     assert(val1 == val2, string.format('inconsistent %s version (%s ~= %s)', name, val1, val2))
 end
 
---- constructor
--- @display NvimVersion
+--- singleton
+-- @display NvimVersion:instance
 -- @treturn vimdaloo.version.NvimVersion
 function NvimVersion:initialize()
     assert(vim, 'unable to initialize NvimVersion: "vim" global variable missing')
