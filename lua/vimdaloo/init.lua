@@ -1,4 +1,4 @@
---- The vimdaloo root module.
+--- The root vimdaloo module.
 --
 -- @module vimdaloo
 
