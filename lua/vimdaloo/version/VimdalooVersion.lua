@@ -1,25 +1,28 @@
-local oo = require('vimdaloo')
-local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
+local oo = require 'vimdaloo'
 
----
--- @class vimdaloo.version.VimdalooVersion
--- @display …version.VimdalooVersion
--- @inherits vimdaloo.version.SemanticVersion
-local VimdalooVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.VimdalooVersion'))
+import 'vimdaloo.version.SemanticVersion'
 
---- Description.
--- The [Vimdaloo](https://vimdaloo.io/) semantic version, populated from `vimdaloo._VERSION`
--- @section Description
+namespace 'vimdaloo.version' {
+    ---
+    -- @class vimdaloo.version.VimdalooVersion
+    -- @display …version.VimdalooVersion
+    -- @inherits vimdaloo.version.SemanticVersion
+    class 'VimdalooVersion',
+    extends 'vimdaloo.version.SemanticVersion' {
 
---- API.
---- @section API
+        --- Description.
+        -- The [Vimdaloo](https://vimdaloo.io/) semantic version, populated from `vimdaloo._VERSION`
+        -- @section Description
 
---- singleton
--- @display VimdalooVersion:instance
--- @treturn vimdaloo.version.VimdalooVersion
-function VimdalooVersion:initialize()
-    local prefix = 'Vimdaloo '
-    SemanticVersion.initialize(self, prefix, oo._VERSION:gsub(prefix, ''))
-end
+        --- API.
+        --- @section API
 
-return VimdalooVersion
+        --- constructor
+        -- @display VimdalooVersion
+        -- @treturn vimdaloo.version.VimdalooVersion
+        new = function(self)
+            local prefix = 'Vimdaloo '
+            vimdaloo.version.SemanticVersion.new(self, prefix, oo._VERSION:gsub(prefix, ''))
+        end,
+    },
+}

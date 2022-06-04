@@ -1,50 +1,54 @@
-local import = require('vimdaloo').import
-local Object = import('vimdaloo.lang.Object')
+import 'vimdaloo.lang.Object'
 
----
--- @class vimdaloo.version.Version
--- @display …version.Version
--- @inherits vimdaloo.lang.Object
---
--- **Subclasses**
---
--- @{vimdaloo.version.SemanticVersion|SemanticVersion}
-local Version = Object:subclass('vimdaloo.version.Version')
+namespace 'vimdaloo.version' {
+    ---
+    -- @class vimdaloo.version.Version
+    -- @display …version.Version
+    -- @inherits vimdaloo.lang.Object
+    --
+    -- **Subclasses**
+    --
+    -- @{vimdaloo.version.SemanticVersion|SemanticVersion}
+    class 'Version',
+    extends 'vimdaloo.lang.Object' {
 
---- Description.
--- A simple version prefix/value holder.
--- @section Description
+        --- Description.
+        -- A simple version prefix/value holder.
+        -- @section Description
 
---- API.
---- @section API
+        --- API.
+        --- @section API
 
---- constructor
--- @display Version
--- @tparam string prefix
--- @tparam string value
--- @treturn vimdaloo.version.Version
-function Version:initialize(prefix, value)
-    Object.initialize(self)
-    self.prefix = prefix
-    self.value = value
-end
+        --- constructor
+        -- @display Version
+        -- @tparam string prefix the prefix
+        -- @tparam string value the value
+        -- @treturn vimdaloo.version.Version
+        new = function(self, prefix, value)
+            vimdaloo.lang.Object.new(self)
+            self.prefix = prefix
+            self.value = value
+        end,
 
---- prefix getter
--- @treturn string prefix
-function Version:getPrefix()
-    return self.prefix
-end
+        --- prefix getter
+        -- @display getPrefix
+        -- @treturn string prefix the prefix
+        getPrefix = function(self)
+            return self.prefix
+        end,
 
---- value getter
--- @treturn string value
-function Version:getValue()
-    return self.value
-end
+        --- value getter
+        -- @display getValue
+        -- @treturn string value the value
+        getValue = function(self)
+            return self.value
+        end,
 
---- full version string (prefix + value); overrides `vimdaloo.lang.Object:toString()`
--- @treturn string
-function Version:toString()
-    return self:getPrefix() .. self:getValue()
-end
-
-return Version
+        --- full version string (prefix + value); overrides `vimdaloo.lang.Object:toString()`
+        -- @display toString
+        -- @treturn string the string form
+        toString = function(self)
+            return self:getPrefix() .. self:getValue()
+        end,
+    },
+}

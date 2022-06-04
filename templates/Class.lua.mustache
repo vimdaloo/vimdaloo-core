@@ -1,55 +1,61 @@
-local import = require('vimdaloo').import
-local {{super.class}} = import('{{root}}.{{super.pkg}}.{{super.class}}')
+--- @diagnostic disable:undefined-global
 
----
--- @class {{root}}.{{pkg}}.{{class}}
--- @display …{{pkg}}.{{class}}
--- @inherits {{root}}.{{super.pkg}}.{{super.class}}
---
--- **Subclasses**
---
-{{#subclasses}}
--- @{{openbrace}}{{root}}.{{pkg}}.{{class}}|{{class}}}{{closebrace}}{{#comma}},{{/comma}}
-{{/subclasses}}
-local {{class}} = {{super.class}}:subclass('{{root}}.{{pkg}}.{{class}}')
+import '{{root}}.{{super.pkg}}.{{super.class}}'
 
---- Description.
--- {{desc}}
--- @section Description
+namespace '{{root}}.{{pkg}}' {
+    ---
+    -- @class {{root}}.{{pkg}}.{{class}}
+    -- @display …{{pkg}}.{{class}}
+    -- @inherits {{root}}.{{super.pkg}}.{{super.class}}
+    --
+    -- **Subclasses**
+    --
+    {{#subclasses}}
+    -- @{{openbrace}}{{root}}.{{pkg}}.{{class}}|{{class}}{{closebrace}}{{#comma}},{{/comma}}
+    {{/subclasses}}
+    class '{{class}}',
+    extends '{{root}}.{{super.pkg}}.{{super.class}}' {
 
---- API.
---- @section API
+        --- Description.
+        -- {{desc}}
+        -- @section Description
 
---- constructor
--- @display {{class}}
-{{#super}}
-{{#props}}
--- @tparam {{type}} {{var}} {{desc}}
-{{/props}}
-{{/super}}
-{{#props}}
--- @tparam {{type}} {{var}} {{desc}}
-{{/props}}
--- @treturn {{root}}.{{pkg}}.{{class}}
-function {{class}}:initialize({{#super}}{{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}}{{/super}}{{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}})
-    {{#super}}{{class}}.initialize(self, {{#props}}{{#comma}}, {{/comma}}{{var}}{{/props}}{{/super}})
-{{#props}}
-    self.{{var}} = {{var}}
-{{/props}}
-end
+        --- API.
+        --- @section API
 
-{{#props}}
---- {{var}} getter
--- @treturn {{type}} {{var}} {{desc}}
-function {{class}}:get{{access}}()
-    return self.{{var}}
-end
+        --- constructor
+        -- @display {{class}}
+        {{#super}}
+        {{#props}}
+        -- @tparam {{type}} {{var}} {{desc}}
+        {{/props}}
+        {{/super}}
+        {{#props}}
+        -- @tparam {{type}} {{var}} {{desc}}
+        {{/props}}
+        -- @treturn {{root}}.{{pkg}}.{{class}}
+        new = function(self{{#super}}{{#props}}, {{var}}{{/props}}{{/super}}{{#props}}, {{var}}{{/props}})
+            {{root}}.{{super.pkg}}{{super.class}}.new(self{{#super}}{{#props}}, {{var}}{{/props}}{{/super}})
+            {{#props}}
+            self.{{var}} = {{var}}
+            {{/props}}
+        end,
 
---- {{var}} setter
--- @tparam {{type}} {{var}} {{desc}}
-function {{class}}:set{{access}}({{var}})
-    self.{{var}} = {{var}}
-end
+        {{#props}}
 
-{{/props}}
-return {{class}}
+        --- {{var}} getter
+        -- @display get{{access}}
+        -- @treturn {{type}} {{var}} {{desc}}
+        get{{access}} = function(self)
+            return self.{{var}}
+        end,
+
+        --- {{var}} setter
+        -- @display set{{access}}
+        -- @tparam {{type}} {{var}} {{desc}}
+        set{{access}} = function(self, {{var}})
+            self.{{var}} = {{var}}
+        end,
+        {{/props}}
+    }
+}

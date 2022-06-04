@@ -1,71 +1,77 @@
-local import = require('vimdaloo').import
-local Version = import('vimdaloo.version.Version')
+local semver = require 'semver'
 
----
--- @class vimdaloo.version.SemanticVersion
--- @display …version.SemanticVersion
--- @inherits vimdaloo.version.Version
---
--- **Subclasses**
---
--- @{vimdaloo.version.LuaJITVersion|LuaJITVersion},
--- @{vimdaloo.version.LuaVersion|LuaVersion},
--- @{vimdaloo.version.NvimVersion|NvimVersion},
--- @{vimdaloo.version.VimdalooVersion|VimdalooVersion}
-local SemanticVersion = Version:subclass('vimdaloo.version.SemanticVersion')
+import 'vimdaloo.version.Version'
 
-local semver = require('semver')
+namespace 'vimdaloo.version' {
+    ---
+    -- @class vimdaloo.version.SemanticVersion
+    -- @display …version.SemanticVersion
+    -- @inherits vimdaloo.version.Version
+    --
+    -- **Subclasses**
+    --
+    -- @{vimdaloo.version.LuaJITVersion|LuaJITVersion},
+    -- @{vimdaloo.version.LuaVersion|LuaVersion},
+    -- @{vimdaloo.version.NvimVersion|NvimVersion},
+    -- @{vimdaloo.version.VimdalooVersion|VimdalooVersion}
+    class 'SemanticVersion',
+    extends 'vimdaloo.version.Version' {
 
---- Description.
--- A version able to parse and adhere to the **Semantic Versioning Specification** ([SemVer](https://semver.org))
--- @section Description
+        --- Description.
+        -- A version able to parse and adhere to the **Semantic Versioning Specification** ([SemVer](https://semver.org))
+        -- @section Description
 
---- API.
---- @section API
+        --- API.
+        --- @section API
 
---- constructor
--- @display SemanticVersion
--- @tparam string prefix
--- @tparam string value
--- @treturn vimdaloo.version.SemanticVersion
-function SemanticVersion:initialize(prefix, value)
-    Version.initialize(self, prefix, value)
-    local sv = semver(value)
-    self.major = sv.major
-    self.minor = sv.minor
-    self.patch = sv.patch
-    self.prerelease = sv.prerelease
-    self.build = sv.build
-end
+        --- constructor
+        -- @display SemanticVersion
+        -- @tparam string prefix the prefix
+        -- @tparam string value the value
+        -- @treturn vimdaloo.version.SemanticVersion
+        new = function(self, prefix, value)
+            vimdaloo.version.Version.new(self, prefix, value)
+            local sv = semver(value)
+            self.major = sv.major
+            self.minor = sv.minor
+            self.patch = sv.patch
+            self.prerelease = sv.prerelease
+            self.build = sv.build
+        end,
 
---- major getter
--- @treturn number major
-function SemanticVersion:getMajor()
-    return self.major
-end
+        --- major getter
+        -- @display getMajor
+        -- @treturn string major the major section
+        getMajor = function(self)
+            return self.major
+        end,
 
---- minor getter
--- @treturn number minor
-function SemanticVersion:getMinor()
-    return self.minor
-end
+        --- minor getter
+        -- @display getMinor
+        -- @treturn string minor the minor section
+        getMinor = function(self)
+            return self.minor
+        end,
 
---- patch getter
--- @treturn number patch
-function SemanticVersion:getPatch()
-    return self.patch
-end
+        --- patch getter
+        -- @display getPatch
+        -- @treturn string patch the patch section
+        getPatch = function(self)
+            return self.patch
+        end,
 
---- prerelease getter
--- @treturn string prerelease
-function SemanticVersion:getPrerelease()
-    return self.prerelease
-end
+        --- prerelease getter
+        -- @display getPrerelease
+        -- @treturn string prerelease the prerelease section
+        getPrerelease = function(self)
+            return self.prerelease
+        end,
 
---- build getter
--- @treturn string build
-function SemanticVersion:getBuild()
-    return self.build
-end
-
-return SemanticVersion
+        --- build getter
+        -- @display getBuild
+        -- @treturn string build the build section
+        getBuild = function(self)
+            return self.build
+        end,
+    },
+}

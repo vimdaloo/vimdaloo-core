@@ -1,59 +1,66 @@
-local import = require('vimdaloo').import
-local Animal = import('example.animals.Animal')
+--- @diagnostic disable:undefined-global
 
----
--- @class example.pets.Pet
--- @display …pets.Pet
--- @inherits example.animals.Animal
---
--- **Subclasses**
---
--- @{example.cats.Cat|Cat}},
--- @{example.dogs.Dog|Dog}}
-local Pet = Animal:subclass('example.pets.Pet')
+import 'example.animals.Animal'
 
---- Description.
--- This is an example class for a pet.
--- @section Description
+namespace 'example.pets' {
+    ---
+    -- @class example.pets.Pet
+    -- @display …pets.Pet
+    -- @inherits example.animals.Animal
+    --
+    -- **Subclasses**
+    --
+    -- @{example.cats.Cat|Cat},
+    -- @{example.dogs.Dog|Dog}
+    class 'Pet',
+    extends 'example.animals.Animal' {
 
---- API.
---- @section API
+        --- Description.
+        -- This is an example class for a pet.
+        -- @section Description
 
---- constructor
--- @display Pet
--- @tparam string name the pet name
--- @tparam number kills the number of kills
--- @tparam string nickname the nickname
--- @tparam number xlost the number of times lost
--- @treturn example.pets.Pet
-function Pet:initialize(name, kills, nickname, xlost)
-    Animal.initialize(self, name, kills)
-    self.nickname = nickname
-    self.xlost = xlost
-end
+        --- API.
+        --- @section API
 
---- nickname getter
--- @treturn string nickname the nickname
-function Pet:getNickname()
-    return self.nickname
-end
+        --- constructor
+        -- @display Pet
+        -- @tparam string name the pet name
+        -- @tparam number kills the number of kills
+        -- @tparam string nickname the nickname
+        -- @tparam number xlost the number of times lost
+        -- @treturn example.pets.Pet
+        new = function(self, name, kills, nickname, xlost)
+            example.animalsAnimal.new(self, name, kills)
+            self.nickname = nickname
+            self.xlost = xlost
+        end,
 
---- nickname setter
--- @tparam string nickname the nickname
-function Pet:setNickname(nickname)
-    self.nickname = nickname
-end
+        --- nickname getter
+        -- @display getNickname
+        -- @treturn string nickname the nickname
+        getNickname = function(self)
+            return self.nickname
+        end,
 
---- xlost getter
--- @treturn number xlost the number of times lost
-function Pet:getTimesLost()
-    return self.xlost
-end
+        --- nickname setter
+        -- @display setNickname
+        -- @tparam string nickname the nickname
+        setNickname = function(self, nickname)
+            self.nickname = nickname
+        end,
 
---- xlost setter
--- @tparam number xlost the number of times lost
-function Pet:setTimesLost(xlost)
-    self.xlost = xlost
-end
+        --- xlost getter
+        -- @display getTimesLost
+        -- @treturn number xlost the number of times lost
+        getTimesLost = function(self)
+            return self.xlost
+        end,
 
-return Pet
+        --- xlost setter
+        -- @display setTimesLost
+        -- @tparam number xlost the number of times lost
+        setTimesLost = function(self, xlost)
+            self.xlost = xlost
+        end,
+    },
+}

@@ -1,26 +1,27 @@
-local oo = require('vimdaloo')
-local SemanticVersion = oo.import('vimdaloo.version.SemanticVersion')
+import 'vimdaloo.version.SemanticVersion'
 
----
--- @class vimdaloo.version.LuaJITVersion
--- @display …version.LuaJITVersion
--- @inherits vimdaloo.version.SemanticVersion
-local LuaJITVersion = oo.singleton(SemanticVersion:subclass('vimdaloo.version.LuaJITVersion'))
+namespace 'vimdaloo.version' {
+    ---
+    -- @class vimdaloo.version.LuaJITVersion
+    -- @display …version.LuaJITVersion
+    -- @inherits vimdaloo.version.SemanticVersion
+    class 'LuaJITVersion',
+    extends 'vimdaloo.version.SemanticVersion' {
 
---- Description.
--- A semantic version populated from [`jit.version`](https://luajit.org/ext_jit.html)
--- @section Description
+        --- Description.
+        -- A semantic version populated from [`jit.version`](https://luajit.org/ext_jit.html)
+        -- @section Description
 
---- API.
---- @section API
+        --- API.
+        --- @section API
 
---- singleton
--- @display LuaJITVersion:instance
--- @treturn vimdaloo.version.LuaJITVersion
-function LuaJITVersion:initialize()
-    assert(jit, 'unable to initialize LuaJITVersion: "jit" global variable missing')
-    local prefix = 'LuaJIT '
-    SemanticVersion.initialize(self, prefix, jit.version:gsub(prefix, ''))
-end
-
-return LuaJITVersion
+        --- constructor
+        -- @display LuaJITVersion
+        -- @treturn vimdaloo.version.LuaJITVersion
+        new = function(self)
+            assert(jit, 'unable to initialize LuaJITVersion: "jit" global variable missing')
+            local prefix = 'LuaJIT '
+            vimdaloo.version.SemanticVersion.new(self, prefix, jit.version:gsub(prefix, ''))
+        end,
+    },
+}
