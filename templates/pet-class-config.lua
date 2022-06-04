@@ -15,7 +15,7 @@ return {
         class = 'Animal',
         props = {
             { type = 'string', var = 'name', desc = 'the pet name' },
-            { comma = true, type = 'number', var = 'kills', desc = 'the number of kills' },
+            { type = 'number', var = 'kills', desc = 'the number of kills' },
         },
     },
     subclasses = {
@@ -23,7 +23,7 @@ return {
         { pkg = 'dogs', class = 'Dog' },
     },
     props = {
-        { comma = true, type = 'string', var = 'nickname', access = 'Nickname', desc = 'the nickname' },
-        { comma = true, type = 'number', var = 'xlost', access = 'TimesLost', desc = 'the number of times lost' },
+        { type = 'string', var = 'nickname', access = 'Nickname', desc = 'the nickname' },
+        { type = 'number', var = 'xlost', access = 'TimesLost', desc = 'the number of times lost' },
     },
 }

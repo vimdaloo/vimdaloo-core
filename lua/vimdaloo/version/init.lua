@@ -1,4 +1,7 @@
-local import = require('vimdaloo').import
+import 'vimdaloo.version.LuaVersion'
+import 'vimdaloo.version.LuaJITVersion'
+import 'vimdaloo.version.NvimVersion'
+import 'vimdaloo.version.VimdalooVersion'
 
 --- The vimdaloo version module.
 --
@@ -10,7 +13,8 @@ local M = {}
 -- @display lua
 -- @treturn vimdaloo.version.LuaVersion
 function M.lua()
-    return import('vimdaloo.version.LuaVersion'):instance()
+    -- TODO: make singleton
+    return vimdaloo.version.LuaVersion()
 end
 
 --- returns the singleton LuaJITVersion object
@@ -18,7 +22,8 @@ end
 -- @treturn vimdaloo.version.LuaJITVersion
 function M.luajit()
     if jit then
-        return import('vimdaloo.version.LuaJITVersion'):instance()
+        -- TODO: make singleton
+        return vimdaloo.version.LuaJITVersion()
     else
         return nil
     end
@@ -29,7 +34,8 @@ end
 -- @treturn vimdaloo.version.NvimVersion
 function M.nvim()
     if vim then
-        return import('vimdaloo.version.NvimVersion'):instance()
+        -- TODO: make singleton
+        return vimdaloo.version.NvimVersion()
     else
         return nil
     end
@@ -39,7 +45,8 @@ end
 -- @display vimdaloo
 -- @treturn vimdaloo.version.VimdalooVersion
 function M.vimdaloo()
-    return import('vimdaloo.version.VimdalooVersion'):instance()
+    -- TODO: make singleton
+    return vimdaloo.version.VimdalooVersion()
 end
 
 --- returns a table of singleton version objects
@@ -48,8 +55,8 @@ end
 function M.versions()
     return {
         lua = M.lua(),
-        luajit = M.luajit(),
-        nvim = M.nvim(),
+        luajit = jit and M.luajit() or nil,
+        nvim = vim and M.nvim() or nil,
         vimdaloo = M.vimdaloo(),
     }
 end
