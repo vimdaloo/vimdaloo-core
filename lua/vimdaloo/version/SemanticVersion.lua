@@ -17,9 +17,9 @@ namespace 'vimdaloo.version' {
     class 'SemanticVersion',
     extends 'vimdaloo.version.Version' {
 
-        --- Description.
+        --- Details.
         -- A version able to parse and adhere to the **Semantic Versioning Specification** ([SemVer](https://semver.org))
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

@@ -34,9 +34,9 @@ namespace 'vimdaloo.lang' {
     -- @{vimdaloo.version.Version|Version}
     class 'Object' {
 
-        --- Description.
+        --- Details.
         -- Base class for all objects
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

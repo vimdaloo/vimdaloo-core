@@ -5,14 +5,30 @@ local NvimVersion     = import 'vimdaloo.version.NvimVersion'
 local VimdalooVersion = import 'vimdaloo.version.VimdalooVersion'
 -- stylua: ignore end
 
---- The vimdaloo version module.
+--- The `vimdaloo.version` submodule.
 --
 -- @module vimdaloo.version
 
 local M = {}
 
-    --- API.
-    --- @section API
+--- Details.
+-- Version convenience functions.
+-- @section Details
+
+--- API.
+--- @section API
+
+--- Initializes the `vimdaloo.version` submodule. Already called automatically by `vimdaloo.setup(config)`.
+-- @display setup
+-- @tparam table config optional custom user configuration
+-- @see vimdaloo
+function M.setup(config) --- @diagnostic disable-line:unused-local
+    -- if in vim, add commands
+    if vim then
+        vim.cmd [[command! VimdalooVersionNotify :lua require('vimdaloo.version').notify()<CR>]]
+        vim.cmd [[command! VimdalooVersionPrint :lua require('vimdaloo.version').print()<CR>]]
+    end
+end
 
 --- returns the singleton LuaVersion object
 -- @display lua

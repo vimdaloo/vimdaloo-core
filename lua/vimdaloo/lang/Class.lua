@@ -8,9 +8,9 @@ namespace 'vimdaloo.lang' {
     class 'Class',
     extends 'vimdaloo.lang.Object' {
 
-        --- Description.
+        --- Details.
         -- An object class representation.
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

@@ -1,4 +1,4 @@
---- The root vimdaloo module.
+--- The `vimdaloo` module.
 --
 -- @module vimdaloo
 
@@ -9,15 +9,15 @@ local M = {
     _LICENSE = 'Apache License 2.0',
 }
 
---- Setup.
--- Required to bootstrap the system
--- @section Setup
+--- Details.
+-- Core Vimdaloo system.
+-- @section Details
 --
 -- @code
 --    -- accept the defaults
 --    require('vimdaloo').setup()
 --
---    -- or override the defaults
+--    -- …or override the defaults
 --    require('vimdaloo').setup({
 --        env = _G,
 --        base_path = vim and 'lua' or 'src',
@@ -26,16 +26,16 @@ local M = {
 --- API.
 --- @section API
 
---- bootstraps the vimdaloo system
+--- Initializes the entire `vimdaloo` system, including all submodules.
 -- @display setup
 -- @tparam table config optional custom user configuration
 function M.setup(config)
-    -- initialize the language
-    require('vimdaloo.lang').setup(config)
-    -- if in vim, add commands
-    if vim then
-        vim.cmd [[command! VimdalooVersionNotify :lua require('vimdaloo.version').notify()<CR>]]
-        vim.cmd [[command! VimdalooVersionPrint :lua require('vimdaloo.version').print()<CR>]]
+    -- initialize each submodule
+    for _, sm in pairs {
+        'lang',
+        'version',
+    } do
+        require('vimdaloo.' .. sm).setup(config)
     end
 end
 

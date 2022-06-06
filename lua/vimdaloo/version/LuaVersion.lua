@@ -8,9 +8,9 @@ namespace 'vimdaloo.version' {
     class 'LuaVersion',
     extends 'vimdaloo.version.SemanticVersion' {
 
-        --- Description.
+        --- Details.
         -- A semantic version singleton populated from [`_VERSION`](https://www.lua.org/manual/5.4/manual.html#pdf-_VERSION)
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

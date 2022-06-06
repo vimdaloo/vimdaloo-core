@@ -12,9 +12,9 @@ namespace 'vimdaloo.version' {
     class 'NvimVersion',
     extends 'vimdaloo.version.SemanticVersion' {
 
-        --- Description.
+        --- Details.
         -- The semantic version singleton populated from [`nvim`](https://neovim.io) `-v` and [`vim.version()`](https://neovim.io/doc/user/lua.html#vim.version)
-        -- @section Description
+        -- @section Details
         --
         -- @code
         --    -- SemanticVersion parent class gets populated from:

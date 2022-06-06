@@ -8,9 +8,9 @@ namespace 'vimdaloo.version' {
     class 'LuaJITVersion',
     extends 'vimdaloo.version.SemanticVersion' {
 
-        --- Description.
+        --- Details.
         -- The semantic version singleton populated from [`jit.version`](https://luajit.org/ext_jit.html)
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API
