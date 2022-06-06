@@ -16,22 +16,22 @@
 --- The `vimdaloo.lang` submodule.
 --
 -- @module vimdaloo.lang
-
-local M = {
-    SINGLETONS = {},
-}
+-- @see vimdaloo
 
 --- Details.
 -- Base language capabilities.
 -- @section Details
 
 --- API.
---- @section API
+-- @section API
 
---- Initializes the `vimdaloo.lang` submodule. Already called automatically by `vimdaloo.setup(config)`.
+local M = {
+    SINGLETONS = {},
+}
+
+--- Initializes the `lang` submodule. By default called automatically by `vimdaloo.setup(config)`.
 -- @display setup
 -- @tparam table config optional custom user configuration
--- @see vimdaloo
 function M.setup(config)
     local setupConfig = config or {}
     local SETUP_ENV = setupConfig['env'] or _G
