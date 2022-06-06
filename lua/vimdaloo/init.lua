@@ -9,29 +9,7 @@ local M = {
     _LICENSE = 'Apache License 2.0',
 }
 
--- TODO: re-implement singleton behavior
 ---
--- @ display singleton
--- @ tparam middleclass class the class to turn into a singleton
--- @ treturn function the class turned into a singleton
--- function M.singleton(class)
---     -- Had to write this code myself since the middleclass-mixin-singleton
---     -- module works on Lua 5.1 and LuaJIT 2.1.0-beta3, but blows up on Lua 5.4.
---     if class.static._new == nil then
---         class.static._new = class.static.new
---         class.static.new = function()
---             error('Use ' .. class.name .. ':instance() instead of :new()')
---         end
---         function class.static.instance(...)
---             if class.static._singleton == nil then
---                 class.static._singleton = class.static._new(...) ---@diagnostic disable-line: redundant-parameter
---             end
---             return class.static._singleton
---         end
---     end
---     return class
--- end
-
 -- @display setup
 -- @tparam table config optional custom user configuration
 function M.setup(config)

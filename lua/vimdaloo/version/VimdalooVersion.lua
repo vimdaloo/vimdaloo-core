@@ -11,16 +11,16 @@ namespace 'vimdaloo.version' {
     extends 'vimdaloo.version.SemanticVersion' {
 
         --- Description.
-        -- The [Vimdaloo](https://vimdaloo.io/) semantic version, populated from `vimdaloo._VERSION`
+        -- The [Vimdaloo](https://vimdaloo.io/) semantic version singleton, populated from `vimdaloo._VERSION`
         -- @section Description
 
         --- API.
         --- @section API
 
-        --- constructor
-        -- @display VimdalooVersion
+        --- singleton
+        -- @display instance
         -- @treturn vimdaloo.version.VimdalooVersion
-        new = function(self)
+        singleton = function(self)
             local prefix = 'Vimdaloo '
             vimdaloo.version.SemanticVersion.new(self, prefix, oo._VERSION:gsub(prefix, ''))
         end,

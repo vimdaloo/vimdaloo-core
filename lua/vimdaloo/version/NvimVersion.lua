@@ -13,7 +13,7 @@ namespace 'vimdaloo.version' {
     extends 'vimdaloo.version.SemanticVersion' {
 
         --- Description.
-        -- A semantic version populated from [`nvim`](https://neovim.io) `-v` and [`vim.version()`](https://neovim.io/doc/user/lua.html#vim.version)
+        -- The semantic version singleton populated from [`nvim`](https://neovim.io) `-v` and [`vim.version()`](https://neovim.io/doc/user/lua.html#vim.version)
         -- @section Description
         --
         -- @code
@@ -45,10 +45,10 @@ namespace 'vimdaloo.version' {
         --- API.
         --- @section API
 
-        --- constructor
-        -- @display NvimVersion
+        --- singleton
+        -- @display instance
         -- @treturn vimdaloo.version.NvimVersion
-        new = function(self)
+        singleton = function(self)
             assert(vim, 'unable to initialize NvimVersion: "vim" global variable missing')
             -- HACK: shouldn't have to spawn the command to get the full semantic version
             local handle = io.popen(vim.v.progpath .. ' -v')

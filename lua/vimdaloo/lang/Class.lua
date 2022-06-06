@@ -35,7 +35,7 @@ namespace 'vimdaloo.lang' {
         -- @display toString
         -- @treturn string the string form
         toString = function(self)
-            return 'class ' .. self:getName()
+            return 'class ' .. self.name
         end,
     },
 }
