@@ -51,11 +51,13 @@ namespace 'vimdaloo.lang' {
         -- @display getClass
         -- @treturn string the class
         getClass = function(self)
-            if self.class == nil then
-                -- import and instanciate lazily,
-                -- otherwise we get a cross-dependency loop between Class and Object
+            -- if self.class == nil then
+            if not self.class then
+                -- import and instanciate lazily, otherwise we get
+                -- a cross-dependency loop between Class and Object
                 import 'vimdaloo.lang.Class'
-                self.class = vimdaloo.lang.Class(self.__getclass(self):getName())
+                -- self.class = vimdaloo.lang.Class(self.__getclass(self):getName())
+                self.class = vimdaloo.lang.Class(self:__getclass():getName())
             end
             return self.class
         end,

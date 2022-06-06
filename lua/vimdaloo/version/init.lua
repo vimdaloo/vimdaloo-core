@@ -1,7 +1,9 @@
-import 'vimdaloo.version.LuaVersion'
-import 'vimdaloo.version.LuaJITVersion'
-import 'vimdaloo.version.NvimVersion'
-import 'vimdaloo.version.VimdalooVersion'
+-- stylua: ignore start
+local LuaVersion      = import 'vimdaloo.version.LuaVersion'
+local LuaJITVersion   = import 'vimdaloo.version.LuaJITVersion'
+local NvimVersion     = import 'vimdaloo.version.NvimVersion'
+local VimdalooVersion = import 'vimdaloo.version.VimdalooVersion'
+-- stylua: ignore end
 
 --- The vimdaloo version module.
 --
@@ -13,8 +15,7 @@ local M = {}
 -- @display lua
 -- @treturn vimdaloo.version.LuaVersion
 function M.lua()
-    -- TODO: make singleton
-    return vimdaloo.version.LuaVersion.instance()
+    return LuaVersion.instance()
 end
 
 --- returns the singleton LuaJITVersion object
@@ -22,8 +23,7 @@ end
 -- @treturn vimdaloo.version.LuaJITVersion
 function M.luajit()
     if jit then
-        -- TODO: make singleton
-        return vimdaloo.version.LuaJITVersion.instance()
+        return LuaJITVersion.instance()
     else
         return nil
     end
@@ -34,8 +34,7 @@ end
 -- @treturn vimdaloo.version.NvimVersion
 function M.nvim()
     if vim then
-        -- TODO: make singleton
-        return vimdaloo.version.NvimVersion.instance()
+        return NvimVersion.instance()
     else
         return nil
     end
@@ -45,8 +44,7 @@ end
 -- @display vimdaloo
 -- @treturn vimdaloo.version.VimdalooVersion
 function M.vimdaloo()
-    -- TODO: make singleton
-    return vimdaloo.version.VimdalooVersion.instance()
+    return VimdalooVersion.instance()
 end
 
 --- returns a table of singleton version objects

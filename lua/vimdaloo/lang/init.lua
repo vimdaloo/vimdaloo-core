@@ -1,6 +1,6 @@
 -- Adapted from: https://github.com/stein197/luass on 2022-06-03
 -- Changes made:
---  1) require('vimdaloo.lang').setup() needs to be called explicity
+--  1) require('vimdaloo').setup() must now be called, which then calls require('vimdaloo.version').setup()
 --  2) renamed "constructor" function to "new"
 --  3) when a singleton() function is present, make it a singleton and add an instance() function
 --  4) moved __tostring to vimdaloo.lang.Object's __tostring, calling vimdaloo.lang.Object:getClass()
@@ -8,8 +8,10 @@
 --  6) supports Neovim for plugin use
 --  7) adds backwoards compatibility for table.pack and table.unpack
 --  8) supports scoping to a non-global environment (but defaults to _G)
---  9) fixed unused variable names in loops (replaced with _)
--- 10) formatted according to project .stylua rules
+--  9) fix accidently importing init.lua files with * imports
+-- 10) return module (or table of modules with *) from import statement
+-- 11) fixed unused variable names in loops (replaced with _)
+-- 12) formatted according to project .stylua rules
 
 local M = {
     SINGLETONS = {},
@@ -611,15 +613,21 @@ function M.setup(userConfig)
             local ns = table.concat(parts, '.')
             for fileName in result do
                 local fileBase = fileName:gsub('%.lua$', '')
-                require(ns .. '.' .. fileBase)
+                if fileBase ~= 'init' then
+                    require(ns .. '.' .. fileBase)
+                end
             end
         else
             require(name)
-            -- TODO: look into
-            -- if name == 'vimdaloo.version.LuaVersion' then
-            --     SETUP_ENV['LuaVersion'] = vimdaloo.version.LuaVersion
-            -- end
         end
+        local mod = SETUP_ENV
+        for _, v in pairs(string_split(name, '.')) do
+            if v == '*' then
+                break
+            end
+            mod = mod[v]
+        end
+        return mod
     end
 
     function SETUP_ENV.switch(variable)

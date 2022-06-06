@@ -1,6 +1,6 @@
-local oo = require 'vimdaloo'
+local SemanticVersion = import 'vimdaloo.version.SemanticVersion'
 
-import 'vimdaloo.version.SemanticVersion'
+local oo = require 'vimdaloo'
 
 namespace 'vimdaloo.version' {
     ---
@@ -22,7 +22,7 @@ namespace 'vimdaloo.version' {
         -- @treturn vimdaloo.version.VimdalooVersion
         singleton = function(self)
             local prefix = 'Vimdaloo '
-            vimdaloo.version.SemanticVersion.new(self, prefix, oo._VERSION:gsub(prefix, ''))
+            SemanticVersion.new(self, prefix, oo._VERSION:gsub(prefix, ''))
         end,
     },
 }
