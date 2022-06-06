@@ -12,9 +12,9 @@ namespace 'vimdaloo.version' {
     class 'Version',
     extends 'vimdaloo.lang.Object' {
 
-        --- Description.
+        --- Details.
         -- A simple version prefix/value holder.
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

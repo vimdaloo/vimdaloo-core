@@ -10,9 +10,9 @@ namespace 'vimdaloo.version' {
     class 'VimdalooVersion',
     extends 'vimdaloo.version.SemanticVersion' {
 
-        --- Description.
+        --- Details.
         -- The [Vimdaloo](https://vimdaloo.io/) semantic version singleton, populated from `vimdaloo._VERSION`
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API

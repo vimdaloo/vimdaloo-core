@@ -13,12 +13,27 @@
 -- 11) fixed unused variable names in loops (replaced with _)
 -- 12) formatted according to project .stylua rules
 
+--- The `vimdaloo.lang` submodule.
+--
+-- @module vimdaloo.lang
+
 local M = {
     SINGLETONS = {},
 }
 
-function M.setup(userConfig)
-    local setupConfig = userConfig or {}
+--- Details.
+-- Base language capabilities.
+-- @section Details
+
+--- API.
+--- @section API
+
+--- Initializes the `vimdaloo.lang` submodule. Already called automatically by `vimdaloo.setup(config)`.
+-- @display setup
+-- @tparam table config optional custom user configuration
+-- @see vimdaloo
+function M.setup(config)
+    local setupConfig = config or {}
     local SETUP_ENV = setupConfig['env'] or _G
 
     local loadedFlag = '__vimdaloo_lang_loaded'
@@ -180,8 +195,7 @@ function M.setup(userConfig)
         local lastNS = SETUP_ENV
         for _, part in pairs(parts) do
             -- WARN: why redefine?
-            --- @diagnostic disable-next-line:redefined-local (lastNS)
-            local lastNS = lastNS[part]
+            local lastNS = lastNS[part] --- @diagnostic disable-line:redefined-local
             if
                 not lastNS
                 or type(lastNS) == 'table' and lastNS.__meta and lastNS.__meta.type == SETUP_ENV.Type.NAMESPACE
@@ -325,8 +339,7 @@ function M.setup(userConfig)
             }
         end
         if self.singleton then
-            --- @diagnostic disable-next-line:undefined-field
-            local classname = SETUP_ENV.Class(self):getName()
+            local classname = SETUP_ENV.Class(self):getName() --- @diagnostic disable-line:undefined-field
             if M.SINGLETONS[classname] then
                 return M.SINGLETONS[classname]
             else
@@ -442,7 +455,7 @@ function M.setup(userConfig)
             SETUP_ENV[typeName] = nil
         end,
 
-        --- Sets base search path for imports
+        -- Sets base search path for imports
         setBasePath = function(path)
             if __meta.path then
                 local pathParts = string_split(package.path, pathDelimiter)
