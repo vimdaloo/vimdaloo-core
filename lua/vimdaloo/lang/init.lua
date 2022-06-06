@@ -1,13 +1,13 @@
 -- Adapted from: https://github.com/stein197/luass on 2022-06-03
 -- Changes made:
---  1) require('vimdaloo').setup() must now be called, which then calls require('vimdaloo.version').setup()
---  2) renamed "constructor" function to "new"
---  3) when a singleton() function is present, make it a singleton and add an instance() function
---  4) moved __tostring to vimdaloo.lang.Object's __tostring, calling vimdaloo.lang.Object:getClass()
---  5) replaced getClass() with __getclass, so we can have vimdaloo.lang.Object:getClass()
---  6) supports Neovim for plugin use
---  7) adds backwoards compatibility for table.pack and table.unpack
---  8) supports scoping to a non-global environment (but defaults to _G)
+--  1) require('vimdaloo').setup() must now be called, which then calls require('vimdaloo.lang').setup()
+--  2) rename "constructor" function to "new"
+--  3) when a singleton() function is present, make the class a singleton and add an instance() function
+--  4) move __tostring to vimdaloo.lang.Object's __tostring, calling vimdaloo.lang.Object:getClass()
+--  5) replace getClass() with __getclass, so we can have vimdaloo.lang.Object:getClass()
+--  6) support Neovim for plugin use, defaulting to "lua" base path when inside Neovim instead of "src"
+--  7) support Neovim LuaJIT, adding Lua 5.1 backwards compatibility for table.pack and table.unpack
+--  8) support scoping to a non-global environment (but defaults to _G)
 --  9) fix accidently importing init.lua files with * imports
 -- 10) return module (or table of modules with *) from import statement
 -- 11) fixed unused variable names in loops (replaced with _)
@@ -21,7 +21,7 @@ function M.setup(userConfig)
     local setupConfig = userConfig or {}
     local SETUP_ENV = setupConfig['env'] or _G
 
-    local loadedFlag = '__lua_class_loaded'
+    local loadedFlag = '__vimdaloo_lang_loaded'
     if not SETUP_ENV[loadedFlag] then
         SETUP_ENV[loadedFlag] = true
     else

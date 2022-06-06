@@ -11,6 +11,9 @@ local VimdalooVersion = import 'vimdaloo.version.VimdalooVersion'
 
 local M = {}
 
+    --- API.
+    --- @section API
+
 --- returns the singleton LuaVersion object
 -- @display lua
 -- @treturn vimdaloo.version.LuaVersion

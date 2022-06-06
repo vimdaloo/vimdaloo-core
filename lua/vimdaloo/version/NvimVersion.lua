@@ -18,29 +18,29 @@ namespace 'vimdaloo.version' {
         --
         -- @code
         --    -- SemanticVersion parent class gets populated from:
-        --    --   io.popen(vim.v.progpath .. ' -v')
+        --    -- io.popen(vim.v.progpath .. ' -v')
         --
         --    -- NvimVersion class gets further populated from:
-        --    --   vim.version()
-        --    --     NVIM v0.7.0
-        --           {
-        --             api_compatible = 0,
-        --             api_level = 9,
-        --             api_prerelease = false,
-        --             major = 0,
-        --             minor = 7,
-        --             patch = 0
-        --           }
-        --    --     NVIM v0.8.0-dev+302-gaf2899aee
-        --           {
-        --             api_compatible = 0,
-        --             api_level = 10,
-        --             api_prerelease = true,
-        --             major = 0,
-        --             minor = 8,
-        --             patch = 0,
-        --             prerelease = true
-        --           }
+        --    -- vim.version()
+        --    -- NVIM v0.7.0
+        --    {
+        --      api_compatible = 0,
+        --      api_level = 9,
+        --      api_prerelease = false,
+        --      major = 0,
+        --      minor = 7,
+        --      patch = 0
+        --    }
+        --    -- NVIM v0.8.0-dev+374-ge13dcdf16
+        --    {
+        --      api_compatible = 0,
+        --      api_level = 10,
+        --      api_prerelease = true,
+        --      major = 0,
+        --      minor = 8,
+        --      patch = 0,
+        --      prerelease = true
+        --    }
 
         --- API.
         --- @section API
@@ -84,16 +84,16 @@ namespace 'vimdaloo.version' {
         end,
 
         --- api_prerelease getter
-        -- @display getApiPrerelease
+        -- @display isApiPrerelease
         -- @treturn boolean api_prerelease if api prerelease
-        getApiPrerelease = function(self)
+        isApiPrerelease = function(self)
             return self.api_prerelease
         end,
 
         --- prerelease getter
-        -- @display getPrerelease
+        -- @display isPrerelease
         -- @treturn boolean prerelease if prerelease
-        getPrerelease = function(self)
+        isPrerelease = function(self)
             -- use underscore (_), otherwise it references self.prerelease in SemanticVersion
             return self._prerelease
         end,
