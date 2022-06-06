@@ -9,16 +9,16 @@ namespace 'vimdaloo.version' {
     extends 'vimdaloo.version.SemanticVersion' {
 
         --- Description.
-        -- A semantic version populated from [`jit.version`](https://luajit.org/ext_jit.html)
+        -- The semantic version singleton populated from [`jit.version`](https://luajit.org/ext_jit.html)
         -- @section Description
 
         --- API.
         --- @section API
 
-        --- constructor
-        -- @display LuaJITVersion
+        --- singleton
+        -- @display instance
         -- @treturn vimdaloo.version.LuaJITVersion
-        new = function(self)
+        singleton = function(self)
             assert(jit, 'unable to initialize LuaJITVersion: "jit" global variable missing')
             local prefix = 'LuaJIT '
             vimdaloo.version.SemanticVersion.new(self, prefix, jit.version:gsub(prefix, ''))

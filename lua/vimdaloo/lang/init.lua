@@ -1,35 +1,19 @@
 -- Adapted from: https://github.com/stein197/luass on 2022-06-03
 -- Changes made:
--- 1) require('vimdaloo.lang').setup() needs to be called explicity
--- 2) renamed 'constructor' function to 'new"
--- 3) added toString() method (and call it from __tostring)
--- 4) replaced getClass() with __getclass, so we can have Object:getClass()
--- 5) supports Neovim for plugin use
--- 6) adds backwoards compatibility for table.pack and table.unpack
--- 7) supports scoping to a non-global environment (but defaults to _G)
--- 8) unsed variable names fixed (replaced with _)
--- 9) formatted according to project .stylua rules
+--  1) require('vimdaloo.lang').setup() needs to be called explicity
+--  2) renamed "constructor" function to "new"
+--  3) when a singleton() function is present, make it a singleton and add an instance() function
+--  4) moved __tostring to vimdaloo.lang.Object's __tostring, calling vimdaloo.lang.Object:getClass()
+--  5) replaced getClass() with __getclass, so we can have vimdaloo.lang.Object:getClass()
+--  6) supports Neovim for plugin use
+--  7) adds backwoards compatibility for table.pack and table.unpack
+--  8) supports scoping to a non-global environment (but defaults to _G)
+--  9) fixed unused variable names in loops (replaced with _)
+-- 10) formatted according to project .stylua rules
 
-local M = {}
-
--- https://www.lua.org/pil/19.3.html
-local function pairsByKeys(t, f)
-    local a = {}
-    for n in pairs(t) do
-        table.insert(a, n)
-    end
-    table.sort(a, f)
-    local i = 0 -- iterator variable
-    local iter = function() -- iterator function
-        i = i + 1
-        if a[i] == nil then
-            return nil
-        else
-            return a[i], t[a[i]]
-        end
-    end
-    return iter
-end
+local M = {
+    SINGLETONS = {},
+}
 
 function M.setup(userConfig)
     local setupConfig = userConfig or {}
@@ -338,15 +322,32 @@ function M.setup(userConfig)
                 __shr = self['>>'] or self.__shr,
             }
         end
-        local object = setmetatable({}, self.__meta.__proto)
-        if self.new then
-            self.new(object, table.unpack { ... })
+        if self.singleton then
+            --- @diagnostic disable-next-line:undefined-field
+            local classname = SETUP_ENV.Class(self):getName()
+            if M.SINGLETONS[classname] then
+                return M.SINGLETONS[classname]
+            else
+                local object = setmetatable({}, self.__meta.__proto)
+                self.singleton(object, table.unpack { ... })
+                object.__meta = {
+                    type = SETUP_ENV.Type.INSTANCE,
+                    class = self,
+                }
+                M.SINGLETONS[classname] = object
+                return object
+            end
+        else
+            local object = setmetatable({}, self.__meta.__proto)
+            if self.new then
+                self.new(object, table.unpack { ... })
+            end
+            object.__meta = {
+                type = SETUP_ENV.Type.INSTANCE,
+                class = self,
+            }
+            return object
         end
-        object.__meta = {
-            type = SETUP_ENV.Type.INSTANCE,
-            class = self,
-        }
-        return object
     end
 
     local function type_descriptor_handler(descriptor)
@@ -354,10 +355,23 @@ function M.setup(userConfig)
         __meta.lastTypeDescriptor = descriptor
         check_type_field_absence(meta.type, meta.name, descriptor, '__meta')
         check_type_field_absence(meta.type, meta.name, descriptor, '__index')
-        setmetatable(descriptor, {
-            __index = __meta.lastType,
-            __call = type_new,
-        })
+        if descriptor['singleton'] ~= nil then
+            descriptor.instance = function()
+                return type_new(descriptor)
+            end
+            setmetatable(descriptor, {
+                __index = __meta.lastType,
+                __call = function()
+                    error 'call <Class>.instance() for singleton objects instead of <Class>()'
+                    return nil
+                end,
+            })
+        else
+            setmetatable(descriptor, {
+                __index = __meta.lastType,
+                __call = type_new,
+            })
+        end
         __meta.lastTypeDescriptor = nil
         for _, parent in pairs(__meta.lastType.__meta.parents) do
             parent.__meta.children[meta.name] = descriptor
@@ -504,29 +518,6 @@ function M.setup(userConfig)
         __getclass = function(self)
             --- @diagnostic disable-next-line:undefined-field
             return SETUP_ENV.Class(self.__meta.class)
-        end,
-
-        toString = function(self)
-            local str = ''
-            for key, val in pairsByKeys(self) do
-                if key ~= 'class' and string.sub(key, 1, 1) ~= '_' then
-                    if string.len(str) ~= 0 then
-                        str = str .. ','
-                    end
-                    str = string.format('%s%s=%s', str, key, val)
-                end
-            end
-            --- @diagnostic disable-next-line:undefined-field
-            local classname = SETUP_ENV.Class(self.__meta.class):getName()
-            if string.len(str) == 0 then
-                return string.format('%s', classname)
-            else
-                return string.format('%s(%s)', classname, str)
-            end
-        end,
-
-        __tostring = function(self)
-            return self:toString()
         end,
     }
 

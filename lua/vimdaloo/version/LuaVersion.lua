@@ -9,16 +9,16 @@ namespace 'vimdaloo.version' {
     extends 'vimdaloo.version.SemanticVersion' {
 
         --- Description.
-        -- A semantic version populated from [`_VERSION`](https://www.lua.org/manual/5.4/manual.html#pdf-_VERSION)
+        -- A semantic version singleton populated from [`_VERSION`](https://www.lua.org/manual/5.4/manual.html#pdf-_VERSION)
         -- @section Description
 
         --- API.
         --- @section API
 
-        --- constructor
-        -- @display LuaVersion
+        --- singleton
+        -- @display instance
         -- @treturn vimdaloo.version.LuaVersion
-        new = function(self)
+        singleton = function(self)
             assert(_VERSION, 'unable to initialize LuaVersion: "_VERSION" global variable missing')
             local prefix = 'Lua '
             vimdaloo.version.SemanticVersion.new(self, prefix, _VERSION:gsub(prefix, ''))

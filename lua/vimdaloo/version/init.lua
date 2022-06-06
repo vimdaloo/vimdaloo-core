@@ -14,7 +14,7 @@ local M = {}
 -- @treturn vimdaloo.version.LuaVersion
 function M.lua()
     -- TODO: make singleton
-    return vimdaloo.version.LuaVersion()
+    return vimdaloo.version.LuaVersion.instance()
 end
 
 --- returns the singleton LuaJITVersion object
@@ -23,7 +23,7 @@ end
 function M.luajit()
     if jit then
         -- TODO: make singleton
-        return vimdaloo.version.LuaJITVersion()
+        return vimdaloo.version.LuaJITVersion.instance()
     else
         return nil
     end
@@ -35,7 +35,7 @@ end
 function M.nvim()
     if vim then
         -- TODO: make singleton
-        return vimdaloo.version.NvimVersion()
+        return vimdaloo.version.NvimVersion.instance()
     else
         return nil
     end
@@ -46,7 +46,7 @@ end
 -- @treturn vimdaloo.version.VimdalooVersion
 function M.vimdaloo()
     -- TODO: make singleton
-    return vimdaloo.version.VimdalooVersion()
+    return vimdaloo.version.VimdalooVersion.instance()
 end
 
 --- returns a table of singleton version objects
