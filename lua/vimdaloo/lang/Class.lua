@@ -1,4 +1,4 @@
-import 'vimdaloo.lang.Object'
+local Object = import 'vimdaloo.lang.Object'
 
 namespace 'vimdaloo.lang' {
     ---
@@ -20,7 +20,7 @@ namespace 'vimdaloo.lang' {
         -- @tparam string name the name of the class
         -- @treturn vimdaloo.lang.Class
         new = function(self, name)
-            vimdaloo.lang.Object.new(self)
+            Object.new(self)
             self.name = name
         end,
 

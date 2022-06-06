@@ -1,4 +1,4 @@
-import 'vimdaloo.version.SemanticVersion'
+local SemanticVersion = import 'vimdaloo.version.SemanticVersion'
 
 namespace 'vimdaloo.version' {
     ---
@@ -21,7 +21,7 @@ namespace 'vimdaloo.version' {
         singleton = function(self)
             assert(_VERSION, 'unable to initialize LuaVersion: "_VERSION" global variable missing')
             local prefix = 'Lua '
-            vimdaloo.version.SemanticVersion.new(self, prefix, _VERSION:gsub(prefix, ''))
+            SemanticVersion.new(self, prefix, _VERSION:gsub(prefix, ''))
         end,
     },
 }

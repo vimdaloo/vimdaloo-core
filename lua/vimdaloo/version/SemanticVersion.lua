@@ -1,6 +1,6 @@
-local semver = require 'semver'
+local Version = import 'vimdaloo.version.Version'
 
-import 'vimdaloo.version.Version'
+local semver = require 'semver'
 
 namespace 'vimdaloo.version' {
     ---
@@ -30,7 +30,7 @@ namespace 'vimdaloo.version' {
         -- @tparam string value the value
         -- @treturn vimdaloo.version.SemanticVersion
         new = function(self, prefix, value)
-            vimdaloo.version.Version.new(self, prefix, value)
+            Version.new(self, prefix, value)
             local sv = semver(value)
             self.major = sv.major
             self.minor = sv.minor

@@ -1,8 +1,8 @@
+local SemanticVersion = import 'vimdaloo.version.SemanticVersion'
+
 local function _assert_consistent(name, val1, val2)
     assert(val1 == val2, string.format('inconsistent %s version (%s ~= %s)', name, val1, val2))
 end
-
-import 'vimdaloo.version.SemanticVersion'
 
 namespace 'vimdaloo.version' {
     ---
@@ -56,7 +56,7 @@ namespace 'vimdaloo.version' {
             handle:close() ---@diagnostic disable-line: need-check-nil
             local prefix = 'NVIM v'
             value = value:gsub(prefix, '')
-            vimdaloo.version.SemanticVersion.new(self, prefix, value)
+            SemanticVersion.new(self, prefix, value)
             local ver = vim.version()
             _assert_consistent('major', self.major, ver.major)
             _assert_consistent('minor', self.minor, ver.minor)

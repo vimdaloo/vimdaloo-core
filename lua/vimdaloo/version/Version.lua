@@ -1,4 +1,4 @@
-import 'vimdaloo.lang.Object'
+local Object = import 'vimdaloo.lang.Object'
 
 namespace 'vimdaloo.version' {
     ---
@@ -25,7 +25,7 @@ namespace 'vimdaloo.version' {
         -- @tparam string value the value
         -- @treturn vimdaloo.version.Version
         new = function(self, prefix, value)
-            vimdaloo.lang.Object.new(self)
+            Object.new(self)
             self.prefix = prefix
             self.value = value
         end,
