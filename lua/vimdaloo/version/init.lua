@@ -8,20 +8,20 @@ local VimdalooVersion = import 'vimdaloo.version.VimdalooVersion'
 --- The `vimdaloo.version` submodule.
 --
 -- @module vimdaloo.version
-
-local M = {}
+-- @see vimdaloo
 
 --- Details.
 -- Version convenience functions.
 -- @section Details
 
 --- API.
---- @section API
+-- @section API
 
---- Initializes the `vimdaloo.version` submodule. Already called automatically by `vimdaloo.setup(config)`.
+local M = {}
+
+--- Initializes the `version` submodule. By default called automatically by `vimdaloo.setup(config)`.
 -- @display setup
 -- @tparam table config optional custom user configuration
--- @see vimdaloo
 function M.setup(config) --- @diagnostic disable-line:unused-local
     -- if in vim, add commands
     if vim then
