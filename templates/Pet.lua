@@ -1,6 +1,4 @@
---- @diagnostic disable:undefined-global
-
-import 'example.animals.Animal'
+local Animal = import 'example.animals.Animal'
 
 namespace 'example.pets' {
     ---
@@ -15,9 +13,9 @@ namespace 'example.pets' {
     class 'Pet',
     extends 'example.animals.Animal' {
 
-        --- Description.
+        --- Details.
         -- This is an example class for a pet.
-        -- @section Description
+        -- @section Details
 
         --- API.
         --- @section API
@@ -30,7 +28,7 @@ namespace 'example.pets' {
         -- @tparam number xlost the number of times lost
         -- @treturn example.pets.Pet
         new = function(self, name, kills, nickname, xlost)
-            example.animalsAnimal.new(self, name, kills)
+            Animal.new(self, name, kills)
             self.nickname = nickname
             self.xlost = xlost
         end,

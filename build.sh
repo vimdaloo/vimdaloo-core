@@ -1,10 +1,10 @@
 #!/bin/bash
 
-_clean() {
+_remove() {
     luarocks remove vimdaloo-core --local
 }
 
-_install() {
+_make() {
     luarocks make --local
 }
 
@@ -16,13 +16,15 @@ main() {
     cd "${script_dir}"
 
     local action="${1}"
-    if [ "${action}" == "clean" ]; then
-        _clean
+    if [ "${action}" == "remove" ]; then
+        _remove
+    elif [ "${action}" == "make" ]; then
+        _make
     elif [ "${action}" == "install" ]; then
-        _install
+        _remove
+        _make
     else
-        _clean
-        _install
+        echo "./build.sh (remove | make | install)"
     fi
 
     cd "${orig_dir}"

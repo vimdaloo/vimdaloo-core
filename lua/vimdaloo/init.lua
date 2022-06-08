@@ -19,6 +19,9 @@
 --            env = _G,
 --            base_path = vim and 'lua' or 'src',
 --        },
+--        color = {
+--            multiply = true,
+--        },
 --    })
 
 --- API.
@@ -38,7 +41,6 @@ local M = {
     -- @display _LICENSE
     _LICENSE = 'Apache License 2.0',
 }
-
 
 --- Initializes the entire `vimdaloo` system, including all submodules in this order: `lang`, `version`, `color`. You can do this, or individually call each of _just_ the submodules' setups that you care about. However, if you do so, `lang` **always** needs to be called first.
 -- @display setup

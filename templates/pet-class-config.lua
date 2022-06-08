@@ -9,7 +9,7 @@ return {
     root = 'example',
     pkg = 'pets',
     class = 'Pet',
-    desc = 'This is an example class for a pet.',
+    details = 'This is an example class for a pet.',
     super = {
         pkg = 'animals',
         class = 'Animal',
