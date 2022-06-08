@@ -1,6 +1,4 @@
---- @diagnostic disable:undefined-global
-
-import '{{root}}.{{super.pkg}}.{{super.class}}'
+local {{super.class}} = import '{{root}}.{{super.pkg}}.{{super.class}}'
 
 namespace '{{root}}.{{pkg}}' {
     ---
@@ -16,9 +14,9 @@ namespace '{{root}}.{{pkg}}' {
     class '{{class}}',
     extends '{{root}}.{{super.pkg}}.{{super.class}}' {
 
-        --- Description.
-        -- {{desc}}
-        -- @section Description
+        --- Details.
+        -- {{details}}
+        -- @section Details
 
         --- API.
         --- @section API
@@ -35,12 +33,11 @@ namespace '{{root}}.{{pkg}}' {
         {{/props}}
         -- @treturn {{root}}.{{pkg}}.{{class}}
         new = function(self{{#super}}{{#props}}, {{var}}{{/props}}{{/super}}{{#props}}, {{var}}{{/props}})
-            {{root}}.{{super.pkg}}{{super.class}}.new(self{{#super}}{{#props}}, {{var}}{{/props}}{{/super}})
+            {{super.class}}.new(self{{#super}}{{#props}}, {{var}}{{/props}}{{/super}})
             {{#props}}
             self.{{var}} = {{var}}
             {{/props}}
         end,
-
         {{#props}}
 
         --- {{var}} getter
@@ -57,5 +54,5 @@ namespace '{{root}}.{{pkg}}' {
             self.{{var}} = {{var}}
         end,
         {{/props}}
-    }
+    },
 }

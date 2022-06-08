@@ -17,6 +17,28 @@ local function pairsByKeys(t, f)
     return iter
 end
 
+local function flatten(str, tbl)
+    str = str or ''
+    for key, val in pairsByKeys(tbl) do
+        if string.len(str) ~= 0 then
+            str = str .. ','
+        end
+        if type(key) == 'number' then
+            if type(val) == 'table' then
+                str = str .. flatten(nil, val)
+            else
+                str = str .. val
+            end
+        elseif string.sub(key, 1, 1) ~= '_' then
+            if type(val) == 'table' then
+                val = string.format('{%s}', flatten(nil, val))
+            end
+            str = string.format('%s%s=%s', str, key, val)
+        end
+    end
+    return str
+end
+
 namespace 'vimdaloo.lang' {
     ----
     --- &nbsp;<br/>
@@ -31,7 +53,8 @@ namespace 'vimdaloo.lang' {
     -- **Subclasses**
     --
     -- @{vimdaloo.lang.Class|Class},
-    -- @{vimdaloo.version.Version|Version}
+    -- @{vimdaloo.version.Version|Version},
+    -- @{vimdaloo.color.Color|Color}
     class 'Object' {
 
         --- Details.
@@ -64,17 +87,11 @@ namespace 'vimdaloo.lang' {
 
         --- string representation
         -- @display toString
+        -- @tparam string props extra properties to include by subclasses
         -- @treturn string the string representation
-        toString = function(self)
-            local str = ''
-            for key, val in pairsByKeys(self) do
-                if key ~= 'class' and string.sub(key, 1, 1) ~= '_' then
-                    if string.len(str) ~= 0 then
-                        str = str .. ','
-                    end
-                    str = string.format('%s%s=%s', str, key, val)
-                end
-            end
+        toString = function(self, props)
+            local str = flatten(nil, self)
+            str = flatten(str, props)
             local classname = self.__getclass(self):getName()
             if string.len(str) == 0 then
                 return string.format('%s', classname)
@@ -83,8 +100,8 @@ namespace 'vimdaloo.lang' {
             end
         end,
 
-        __tostring = function(self)
-            return self:toString()
+        __tostring = function(self, props)
+            return self:toString(props)
         end,
     },
 }
