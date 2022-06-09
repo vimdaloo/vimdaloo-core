@@ -13,26 +13,20 @@ local Color = import 'vimdaloo.color.Color'
 -- @section API
 
 local M = {
-    config = {
-        multiply = true,
-    },
-    web = {},
-    x11 = {},
     xorg = {},
+    x11 = {},
+    web = {},
 }
 
 --- Initializes the `color` submodule. By default called automatically by `vimdaloo.setup(config)`.
 -- @display setup
 -- @tparam table config optional custom user configuration
-function M.setup(config)
-    -- read config
-    if config['multiply'] then
-        M.config.multiply = config.multiply
-    end
-
+function M.setup(config) --- @diagnostic disable-line:unused-local (config)
     -- initialize lua-color
     local lua_color = require 'lua-color'
     lua_color.colorNames = require 'lua-color.colors.X11'
+
+    -- TODO: Move everything in this functoin from here down into their own palettes?
 
     -- populate vimdaloo.color.xorg
     local combined = {}

@@ -2,17 +2,19 @@ local Object = import 'vimdaloo.lang.Object'
 
 local lua_color = require 'lua-color'
 
-local function check(multiply)
-    if multiply ~= nil then
-        return multiply
-    else
-        local color = require 'vimdaloo.color'
-        if color.config['multiply'] ~= nil then
-            return color.config.multiply
+local function calc(num, mul_amnt, rnd_amt)
+    if mul_amnt ~= nil then
+        num = num * mul_amnt
+    end
+    if rnd_amt ~= nil then
+        if rnd_amt == 1 then
+            num = math.floor(num + 0.5)
         else
-            return true
+            local div = 10 ^ 2
+            num = math.floor(num * div + rnd_amt) / div
         end
     end
+    return num
 end
 
 namespace 'vimdaloo.color' {
@@ -48,8 +50,22 @@ namespace 'vimdaloo.color' {
             return self.names
         end,
 
-        --- HEX color value
+        --- provides the CMYK color values
         -- @display cmyk
+        -- @tparam boolean exact
+        -- @treturn table the CMYK color table
+        cmyk = function(self, exact)
+            local c, m, y, k = self._color:cmyk()
+            return {
+                c = exact and c or calc(c, 100, 1),
+                m = exact and m or calc(m, 100, 1),
+                y = exact and y or calc(y, 100, 1),
+                k = exact and k or calc(k, 100, 1),
+            }
+        end,
+
+        --- provides the HEX color value
+        -- @display hex
         -- @tparam string format value (optional, defaults to '#FFFFFF')
         -- @treturn table the HEX color table
         hex = function(self, format)
@@ -57,149 +73,109 @@ namespace 'vimdaloo.color' {
             return string.upper(self._color:tostring(format))
         end,
 
-        --- provides the RGB color format
-        -- @display rgb
-        -- @tparam boolean multiply (optional, defaults to config or true)
-        -- @treturn table the RGB color table
-        rgb = function(self, multiply)
-            local r, g, b = self._color:rgb()
-            local m = check(multiply)
+        --- provides the HSB color values
+        -- @display hsb
+        -- @tparam boolean exact (optional, defaults to false)
+        -- @treturn table the HSB color table
+        hsb = function(self, exact)
+            local hsva = self:hsv(exact)
             return {
-                r = m and (r * 255) or r,
-                g = m and (g * 255) or g,
-                b = m and (b * 255) or b,
+                h = hsva.h,
+                s = hsva.s,
+                b = hsva.v,
+                a = hsva.a,
             }
         end,
 
-        --- provides the RGBA color format
-        -- @display rgba
-        -- @tparam boolean multiply (optional, defaults to config or true)
-        -- @treturn table the RGBA color table
-        rgba = function(self, multiply)
-            local r, g, b, a = self._color:rgba()
-            local m = check(multiply)
-            return {
-                r = m and (r * 255) or r,
-                g = m and (g * 255) or g,
-                b = m and (b * 255) or b,
-                a = a,
-            }
-        end,
-
-        --- provides the CMYK color format
-        -- @display cmyk
-        -- @treturn table the CMYK color table
-        cmyk = function(self)
-            local c, m, y, k = self._color:cmyk()
-            return {
-                c = c,
-                m = m,
-                y = y,
-                k = k,
-            }
-        end,
-
-        --- provides the HSL color format
+        --- provides the HSL color values
         -- @display hsl
-        -- @tparam boolean multiply (optional, defaults to config or true)
+        -- @tparam boolean exact (optional, defaults to false)
         -- @treturn table the HSL color table
-        hsl = function(self, multiply)
-            local h, s, l = self._color:hsl()
-            local m = check(multiply)
-            return {
-                h = m and (h * 360) or h,
-                s = m and (s * 100) or s,
-                l = m and (l * 100) or l,
-            }
-        end,
-
-        --- provides the HSLA color format
-        -- @display hsla
-        -- @tparam boolean multiply (optional, defaults to config or true)
-        -- @treturn table the HSLA color table
-        hsla = function(self, multiply)
+        hsl = function(self, exact)
             local h, s, l, a = self._color:hsla()
-            local m = check(multiply)
             return {
-                h = m and (h * 360) or h,
-                s = m and (s * 100) or s,
-                l = m and (l * 100) or l,
+                h = exact and h or calc(h, 360, 0.5),
+                s = exact and s or calc(s, 100, 0.5),
+                l = exact and l or calc(l, 100, 0.5),
                 a = a,
             }
         end,
 
-        --- provides the HSV color format
+        --- provides the HSV color values
         -- @display hsv
-        -- @tparam boolean multiply (optional, defaults to config or true)
+        -- @tparam boolean exact (optional, defaults to false)
         -- @treturn table the HSV color table
-        hsv = function(self, multiply)
-            local h, s, v = self._color:hsv()
-            local m = check(multiply)
-            return {
-                h = m and (h * 360) or h,
-                s = m and (s * 100) or s,
-                v = m and (v * 100) or v,
-            }
-        end,
-
-        --- provides the HSVA color format
-        -- @display hsva
-        -- @tparam boolean multiply (optional, defaults to config or true)
-        -- @treturn table the HSVA color table
-        hsva = function(self, multiply)
+        hsv = function(self, exact)
             local h, s, v, a = self._color:hsva()
-            local m = check(multiply)
             return {
-                h = m and (h * 360) or h,
-                s = m and (s * 100) or s,
-                v = m and (v * 100) or v,
+                h = exact and h or calc(h, 360, 0.5),
+                s = exact and s or calc(s, 100, 0.5),
+                v = exact and v or calc(v, 100, 0.5),
                 a = a,
             }
         end,
 
-        --- provides the HWB color format
+        --- provides the HWB color values
         -- @display hwb
-        -- @tparam boolean multiply (optional, defaults to config or true)
+        -- @tparam boolean exact (optional, defaults to false)
         -- @treturn table the HWB color table
-        hwb = function(self, multiply)
-            local h, w, b = self._color:hwb()
-            local m = check(multiply)
-            return {
-                h = m and (h * 360) or h,
-                w = m and (w * 100) or w,
-                b = m and (b * 100) or b,
-            }
-        end,
-
-        --- provides the HWBA color format
-        -- @display hwba
-        -- @tparam boolean multiply (optional, defaults to config or true)
-        -- @treturn table the HWBA color table
-        hwba = function(self, multiply)
+        hwb = function(self, exact)
             local h, w, b, a = self._color:hwba()
-            local m = check(multiply)
             return {
-                h = m and (h * 360) or h,
-                w = m and (w * 100) or w,
-                b = m and (b * 100) or b,
+                h = exact and h or calc(h, 360, 0.5),
+                w = exact and w or calc(w, 100, 0.5),
+                b = exact and b or calc(b, 100, 0.5),
                 a = a,
             }
         end,
 
-        --- NCol color representation
+        --- provides the NCol color representation
         -- @display ncol
+        -- @tparam boolean exact
         -- @treturn string the NCol color representation
         ncol = function(self)
             return self._color:tostring 'ncol'
         end,
 
+        --- provides the RGB color values
+        -- @display rgb
+        -- @tparam boolean exact (optional, defaults to false)
+        -- @tparam boolean percent (optional, defaults to false)
+        -- @treturn table the RGB color table
+        rgb = function(self, exact, percent)
+            local r, g, b, a = self._color:rgba()
+            if exact then
+                return {
+                    r = percent and calc(r, 100, nil) or r,
+                    g = percent and calc(g, 100, nil) or g,
+                    b = percent and calc(b, 100, nil) or b,
+                    a = a,
+                }
+            else
+                return {
+                    r = percent and calc(r, 100, 0.5) or calc(r, 255, nil),
+                    g = percent and calc(g, 100, 0.5) or calc(g, 255, nil),
+                    b = percent and calc(b, 100, 0.5) or calc(b, 255, nil),
+                    a = a,
+                }
+            end
+        end,
+
         --- full version string; overrides `vimdaloo.lang.Object:toString()`
         -- @display toString
+        -- @tparam boolean exact (optional, defaults to false)
+        -- @tparam boolean rgb_percent (optional defaults to false)
         -- @treturn string the string form
-        toString = function(self)
+        toString = function(self, exact, rgb_percent)
             return Object.toString(self, {
-                hex = self:hex(),
-                rgb = self:rgb(),
+                cmyk = self:cmyk(exact),
+                hex = self:hex '#FFFFFFFF',
+                hsb = self:hsb(exact),
+                hsl = self:hsl(exact),
+                hsv = self:hsv(exact),
+                hwb = self:hwb(exact),
+                ncol = self:ncol(),
+                rgb = self:rgb(exact, rgb_percent),
             })
         end,
     },
