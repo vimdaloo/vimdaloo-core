@@ -19,9 +19,6 @@
 --            env = _G,
 --            base_path = vim and 'lua' or 'src',
 --        },
---        color = {
---            multiply = true,
---        },
 --    })
 
 --- API.
@@ -56,6 +53,7 @@ function M.setup(config)
         local submod_config = config[submod] or {}
         require('vimdaloo.' .. submod).setup(submod_config)
     end
+    -- require('vimdaloo.version').print()
 end
 
 return M
