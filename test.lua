@@ -1,3 +1,5 @@
+#!/usr/bin/env lua
+
 if not vim then
     require('vimdaloo').setup()
 end
@@ -10,11 +12,19 @@ test_version()
 
 local function test_color()
     local mod = require 'vimdaloo.color'
-    local color = mod.web.green
-    print(color:toString())
-    print ' '
-    -- local rgb = color:rgb()
-    -- print(string.format('hex(%s), rgb(%s, %s, %s)', color:hex(), rgb.r, rgb.g, rgb.b))
-    -- print ' '
+    local Color = import 'vimdaloo.color.Color'
+    local colors = {
+        -- mod.xorg.green,
+        mod.x11.green,
+        mod.web.green,
+        Color('rgb 0 255 0'),
+    }
+    for _, color in pairs(colors) do
+        local str = color:toString()
+        local hex = color:hex()
+        local rgb = color:rgb()
+        print(string.format('%s -> hex(%s), rgb(%s, %s, %s)', str, hex.rrggbb, rgb.r, rgb.g, rgb.b))
+        print ' '
+    end
 end
 test_color()

@@ -31,9 +31,9 @@ local M = {
     --- Object-Oriented Lua Library for Neovim
     -- @display _DESCRIPTION
     _DESCRIPTION = 'Object-Oriented Lua Library for Neovim',
-    --- https://github.com/vimdaloo/vimdaloo-core
+    --- https://vimdaloo.io
     -- @display _URL
-    _URL = 'https://github.com/vimdaloo/vimdaloo-core',
+    _URL = 'https://vimdaloo.io',
     --- Apache License 2.0
     -- @display _LICENSE
     _LICENSE = 'Apache License 2.0',
