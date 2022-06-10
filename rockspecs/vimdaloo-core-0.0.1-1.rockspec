@@ -10,9 +10,12 @@ description = {
     issues_url = 'https://github.com/vimdaloo/vimdaloo-core/issues',
     maintainer = 'David Ward <dward@redhat.com>',
     labels = {
+        'neovim',
+        'nvim',
         'object',
         'oo',
         'oop',
+        'plugin',
         'vimdaloo',
     },
 }

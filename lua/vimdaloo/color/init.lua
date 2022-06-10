@@ -13,9 +13,9 @@ local Color = import 'vimdaloo.color.Color'
 -- @section API
 
 local M = {
+    web = {},
     xorg = {},
     x11 = {},
-    web = {},
 }
 
 --- Initializes the `color` submodule. By default called automatically by `vimdaloo.setup(config)`.
@@ -25,20 +25,35 @@ function M.setup(config) --- @diagnostic disable-line:unused-local (config)
     -- initialize lua-color
     local lua_color = require 'lua-color'
     lua_color.colorNames = require 'lua-color.colors.X11'
+end
 
-    -- TODO: Move everything in this functoin from here down into their own palettes?
+--- Initializes the `color` submodule. By default called automatically by `vimdaloo.setup(config)`.
+-- @display setup
+-- @tparam table config optional custom user configuration
+function M.setup_save(config) --- @diagnostic disable-line:unused-local (config)
+    -- initialize lua-color
+    local lua_color = require 'lua-color'
+    lua_color.colorNames = require 'lua-color.colors.X11'
+
+    -- TODO: Move everything in this function from here down into their own palettes?
+    local name2nums = require 'vimdaloo.color.name2nums'
 
     -- populate vimdaloo.color.xorg
-    local combined = {}
+    local rgb2names = {}
+    local rgb2nums = {}
     for name, rgb in pairs(lua_color.colorNames) do
-        if not combined[rgb] then
-            combined[rgb] = { name }
+        if not rgb2names[rgb] then
+            rgb2names[rgb] = { name }
         else
-            table.insert(combined[rgb], name)
+            table.insert(rgb2names[rgb], name)
+        end
+        local nums = name2nums[string.lower(name)]
+        if nums ~= nil then
+            rgb2nums[rgb] = nums
         end
     end
-    for rgb, names in pairs(combined) do
-        local color = Color(rgb, names)
+    for rgb, names in pairs(rgb2names) do
+        local color = Color(rgb, names, rgb2nums[rgb])
         for _, name in pairs(names) do
             M.xorg[name] = color
         end

@@ -36,18 +36,27 @@ namespace 'vimdaloo.color' {
         -- @display Color
         -- @tparam value value
         -- @tparam names names (optional)
+        -- @tparam numbers numbers (optional)
         -- @treturn vimdaloo.color.Color
-        new = function(self, value, names)
+        new = function(self, value, names, numbers)
             Object.new(self, value)
             self._color = lua_color(value)
             self.names = names or {}
+            self.numbers = numbers or {}
         end,
 
         --- names getter
         -- @display getNames
-        -- @treturn table names the known color names
+        -- @treturn table the color names, if known
         getNames = function(self)
             return self.names
+        end,
+
+        --- numbers getter
+        -- @display getNumbers
+        -- @treturn table the color numbers, if known
+        getNumbers = function(self)
+            return self.numbers
         end,
 
         --- provides the CMYK color values
@@ -64,13 +73,16 @@ namespace 'vimdaloo.color' {
             }
         end,
 
-        --- provides the HEX color value
+        --- provides the HEX color formats
         -- @display hex
-        -- @tparam string format value (optional, defaults to '#FFFFFF')
-        -- @treturn table the HEX color table
-        hex = function(self, format)
-            format = format or '#FFFFFF'
-            return string.upper(self._color:tostring(format))
+        -- @treturn table the HEX color formats
+        hex = function(self)
+            return {
+                rgb = self._color:tostring('#rgb'),
+                rgba = self._color:tostring('#rgba'),
+                rrggbb = self._color:tostring('#rrggbb'),
+                rrggbbaa = self._color:tostring('#rrggbbaa'),
+            }
         end,
 
         --- provides the HSB color values
@@ -169,7 +181,7 @@ namespace 'vimdaloo.color' {
         toString = function(self, exact, rgb_percent)
             return Object.toString(self, {
                 cmyk = self:cmyk(exact),
-                hex = self:hex '#FFFFFFFF',
+                hex = self:hex(),
                 hsb = self:hsb(exact),
                 hsl = self:hsl(exact),
                 hsv = self:hsv(exact),

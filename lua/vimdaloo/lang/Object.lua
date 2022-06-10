@@ -44,7 +44,7 @@ namespace 'vimdaloo.lang' {
     --- &nbsp;<br/>
     --- **Class Root**
     ---
-    --- &nbsp; &nbsp; <code style="padding: 0.2em; font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.01em; background-color: #fbedc3;">vimdaloo.lang.Object</code>
+    --- &nbsp; &nbsp; <code style="padding: 0.2em; font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: 0.95em; letter-spacing: 0.01em; background-color: #ceffce;">vimdaloo.lang.Object</code>
     ---
     -- @class vimdaloo.lang.Object
     -- @display …lang.Object
